@@ -1,130 +1,109 @@
 <?php
-/*
- * Name:Alex Fleming
- * Title: edit.php
- * Description: This file has code related to using the edit portion of the webpage.
- *
+/* Assignment:	3
+ * Programmer: Alex Fleming
+ * Title:	Final Assignment
+ * Description:	PHP Script for the creation page of blog posts, requiring connecting to the
+					database with validation for the user being a registered user.
+ * Date:
  */
 
-require ('authenticate.php');
-require('connect.php');
+	require('connector.php');
+	require('authenticate.php');
 
-$error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
+	if (!empty($_GET['id']))
+	{
+		$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-    if(isset($_GET['id'])) {
-      $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+		if(!($id > 0))
+		{
+			header("Location: index.php");
+			exit;
+		}
 
-      // Build the parametrized SQL query using the filtered id.
-      $query = "SELECT * FROM blog WHERE id=:id";
-      $statement = $db->prepare($query);
-      $statement->bindValue(':id', $id, PDO::PARAM_INT);
+		$query = "SELECT * FROM final_skate WHERE id = :id";
+		$statement = $db->prepare($query);
+		$statement->bindValue(':id', $id, PDO::PARAM_INT);
 
-      // Execute the SELECT and fetch the single row returned.
-      $statement->execute();
-      $blog = $statement->fetchAll();
+		$statement->execute();
 
-    }else{
+		if($statement->rowCount() <= 0)
+		{
+			header("Location: index.php");
+			exit;
+		}
 
-        if ($_POST['command'] == 'Update')
-        {
-            // Sanitize user input to escape HTML entities and filter out dangerous characters.
-            $title  = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $id      = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-            if (empty($title)) {
-              $error_message = "Post title must not be empty";
-            }
-
-            if (empty($content)) {
-              $error_message = "Content must not be empty";
-            }
-
-            // Build the parameterized SQL query and bind the sanitized values to the parameters
-            $query     = "UPDATE blog SET title = :title, content = :content WHERE id = :id";
-            $statement = $db->prepare($query);
-            $statement->bindValue(':title', $title);
-            $statement->bindValue(':content', $content);
-            $statement->bindValue(':id', $id, PDO::PARAM_INT);
-
-            // Execute the INSERT.
-            $statement->execute();
-
-            if (isset($error_message)) {
-              header("Location: edit.php?error=" . $error_message . "&id=" . $id);
-            }
-            else
-            {
-            header("Location: index.php");
-            }
-            exit(0);
-
-            //header("Location: index.php");
-            //exit(0);
-        } elseif ($_POST['command'] == 'Delete') {
-
-          // Sanitize user input to escape HTML entities and filter out dangerous characters.
-          $title  = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-          $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-          $id      = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-          // Build the parameterized SQL query and bind to the above sanitized values.
-          $query     = "DELETE FROM blog WHERE id = :id";
-          $statement = $db->prepare($query);
-          $statement->bindValue(':id', $id, PDO::PARAM_INT);
-
-          // Execute the INSERT.
-          $statement->execute();
-
-
-          header("Location: index.php");
-
-          exit(0);
-        }
-      }
-
-
+		$row = $statement->fetch();
+	}
+	else
+	{
+			header("Location: index.php");
+			exit;
+	}
 ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>PDO Update</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+	<meta charset="utf-8">
+	<title>WD2 Final - Edit Post</title>
+	<link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
-
-  <?php if (isset($error)) { ?>
-    <div id="error_message">
-      <p><?= $error ?></p>
-    </div>
-  <?php } ?>
-
-<ul id="menu">
-    <li><a href="index.php">Home</a></li>
-    <li><a href="create.php">New Post</a></li>
-</ul>
-<div>
-  <?php if ($id): ?>
-        <form method="post" action="edit.php">
-          <fieldset>
-            <legend>Edit Blog Post</legend>
-            <!-- Hidden input for the quote primary key. -->
-            <input type="hidden" name="id" value="<?= $blog[0]['id'] ?>">
-            <!-- Quote author and content are echoed into the input value attributes. -->
-            <label for="title">Title</label>
-            <input id="title" name="title" value="<?= $blog[0]['title'] ?>">
-            <label for="content">Content</label>
-            <input id="content" name="content" value="<?= $blog[0]['content'] ?>">
-            <!-- <input type="hidden" name="id" value="2303" /> -->
-            <input type="submit" name="command" value="Update" />
-            <input type="submit" name="command" value="Delete" onclick="return confirm('Are you sure you wish to delete this post?')" />
-          </fieldset>
-        </form>
-    <?php else: ?>
-        <p>No quote selected. <a href="?id=0">Try this link</a>.</p>
-    <?php endif ?>
-</div>
-<!--
-//added from stung eye edited -->
+	<div id="wrapper">
+		<div id="header">
+			<h1><a href="index.php">WD2 Final - Edit Post</a></h1>
+		</div>
+		<ul id="menu">
+			<li><a href="index.php">Home</a></li>
+			<li><a href="create.php">New Post</a></li>
+		</ul>
+		<div id="all_blogs">
+			<form action="process_edit.php" method="post">
+				<fieldset>
+					<legend>Edit Entry Post</legend>
+					<p>
+						<label for="title">Title</label>
+						<input name="title" id="title" value="<?=$row['title']?>">
+					</p>
+          <p>
+            <label for="rating">Rating</label>
+            <input name="rating" id="rating" value="<?=$row['rating']?>">
+          </p>
+          <p>
+            <label for="brand">Brand</label>
+            <input name="brand" id="brand" value="<?=$row['brand']?>">
+          </p>
+          <p>
+            <label for="length">Length</label>
+            <input name="length" id="length" value="<?=$row['length']?>">
+          </p>
+          <p>
+            <label for="width">Width</label>
+            <input name="width" id="width" value="<?=$row['width']?>">
+          </p>
+          <p>
+            <label for="release_year">Release Year</label>
+            <input name="release_year" id="release_year" value="<?=$row['release_year']?>">
+          </p>
+          <p>
+            <label for="year_used">Year Used</label>
+            <input name="year_used" id="year_used" value="<?=$row['year_used']?>">
+          </p>
+					<p>
+						<label for="notes">Notes</label>
+						<textarea name="notes" id="notes"><?=$row['notes']?></textarea>
+					</p>
+					<p>
+						<input type="hidden" name="id" value="<?=$row['id']?>">
+						<input type="submit" name="command" value="Update">
+						<input type="submit" name="command" value="Delete" onclick="return confirm('Are you sure you wish to delete this post?')">
+					</p>
+				</fieldset>
+			</form>
+		</div>
+		<div id="footer">
+			Copyleft 2962 - No Rights Reserved
+		</div>
+	</div>
 </body>
 </html>
