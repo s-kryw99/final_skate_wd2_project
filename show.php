@@ -6,18 +6,16 @@
  *
  */
 
-require('connector.php');
+require('connect.php');
 $id = $_GET['id'];
 
-$query = "SELECT * FROM final_skate WHERE id=:id";
+$query = "SELECT * FROM blog WHERE id=:id";
 $statement = $db->prepare($query);
 $statement->bindValue(':id', $id, PDO::PARAM_INT);
-
 // Execute the SELECT and fetch the single row returned.
 $statement->execute();
-$skate_or_die = $statement->fetchAll();
-// var_dump($skate_or_die);
-
+$blog = $statement->fetchAll();
+// var_dump($blog);
  ?>
  <!DOCTYPE html>
  <html>
@@ -33,27 +31,18 @@ $skate_or_die = $statement->fetchAll();
        <li><a href="index.php">Home</a></li>
        <li><a href="create.php">New Post</a></li>
      </ul>
-     <div id="all_decks">
-       <div class="deck_post">
+     <div id="all_blogs">
+       <div class="blog_post">
          <p>
            <small>
    <!-- //date -->
- <?=date("F d, Y, h:i a",strtotime($skate_or_die[0]['date']))?>
+ <?=date("F d, Y, h:i a",strtotime($blog[0]['created_on']))?>
  <!-- edit page link -->
- <a href="edit.php?id=<?=$skate_or_die[0]['id']?>">edit</a>
+ <a href="edit.php?id=<?=$blog[0]['id']?>">edit</a>
 </small>
 </p>
-<h1><?=$skate_or_die[0]['title'] ?></h1>
-<h5><?=$skate_or_die[0]['brand'] ?></h5>
-<h5><?=$skate_or_die[0]['rating'] ?></h5>
-
-<h5><?=$skate_or_die[0]['length'] ?></h5>
-<h5><?=$skate_or_die[0]['width'] ?></h5>
-
-<h6><?=$skate_or_die[0]['release_year'] ?></h6>
-<h6><?=$skate_or_die[0]['year_used'] ?></h6>
-
-<h2><?=$skate_or_die[0]['notes']?></h2>
+<h1><?=$blog[0]['title'] ?></h1>
+<h3><?=$blog[0]['content']?>
 </div>
 </div>
 <div id="footer">
