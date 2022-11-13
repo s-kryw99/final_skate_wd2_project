@@ -1,62 +1,61 @@
 <?php
- require 'connector.php';
+/*
+ * Name:Alex Fleming
+ * Title: index.php
+ * Description: This file has the code related to the home page.
+ *
+ */
 
- $query="SELECT * FROM final_skate ORDER BY id DESC LIMIT 10";
+ require 'connect.php';
 
- // Returns a PDOStatement object.
- $statement = $db->prepare($query);
+// ● Query the tweets table for all rows so that the latest tweets appear at the top.
+$query="SELECT * FROM blog ORDER BY id DESC LIMIT 5";
 
- $statement->execute();
- $data = $statement->fetchAll();
- ?>
+// Returns a PDOStatement object.
+$statement = $db->prepare($query);
+
+$statement->execute();
+$data = $statement->fetchAll();
+?>
 
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
 <head>
-  <meta charset="utf-8">
-
-  <!-- Title goes here -->
-  <title>Final Project - Personal Use Corporation</title>
-
-  <link rel="stylesheet" href="style_index.css" type="text/css">
+      <meta charset="utf-8">
+      <title>J. Twotwo Blog - General</title>
+      <link rel="stylesheet" href="style_index.css" type="text/css">
 </head>
 <body>
-  <h1><a href="index.php">The Personal Use Corporation ::skateboard component:: *judgment of quality system™*</a></h1>
-  <ul id="menu">
-      <li><a href="index.php" class='active'>Home</a></li>
-      <li><a href="create.php">New Entry</a></li>
-  </ul>
+<h1><a href="index.php">J. Twotwo Blog - Index</a></h1>
+<ul id="menu">
+    <li><a href="index.php" class='active'>Home</a></li>
+    <li><a href="create.php">New Post</a></li>
+</ul>
 
-  <?php  foreach($data as $row) {  ?>
-      <div class="deck_post">
-          <h2>Title: <a href="show.php?id=<?=$row['id']?>"><?=$row['title']?></a></h2>
+<?php  foreach($data as $row) {  ?>
+    <div class="blog_post">
+        <h2><a href="show.php?id=<?=$row['id']?>"><?=$row['title']?></a></h2>
 
+        <small>
+            <?=date("F d, Y, h:i a",strtotime($row['created_on']))?>
+            <a href="edit.php?id=<?=$row['id']?>">edit</a>
 
- <!-- the time stamp for homepage -->
-          <p>
-  					<small>
-  						<?=date_format(date_create($row['datetimestamp']), "F d, o, h:i a")?> -
-  						<a href="edit.php?id=<?=$row['id']?>">edit</a>
-  					</small>
-  				</p>
-          <h4>Brand: <a <?=$row['id']?>> <?=$row['brand']?> </a></h4>
+        </small>
 
-<!-- The notes section with read more option -->
-          <h4> Notes:
-            <?php if (strlen($row['notes']) > 200)
+            <?php if (strlen($row['content']) > 200)
             {
               $link = '<a href="show.php?id=' . $row['id'] . '">Read more</a>';
-              echo substr($row['notes'], 0, 100) . '...' . $link;
+              echo substr($row['content'], 0, 200) . '...' . $link;
             }
             else
             {
-              echo $row['notes'];
+              echo $row['content'];
             }?>
-          </h4>
 
 
+            
 
-    <?php } ?>
-  <div id="footer">2022 - Copyright™</div>
-  </body>
+  <?php } ?>
+<div id="footer">2022 - No Rights</div>
+</body>
 </html>
