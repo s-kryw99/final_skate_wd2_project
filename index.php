@@ -2,22 +2,33 @@
 
 require 'connector.php';
 
-if ($_POST['order'] == "ASC") 
+if ($_POST['order'] == "ASC")
    // echo "yes";
-    //else 
+    //else
    // echo "no";
 
- $order_brand = "ASC"; 
- else  $order_brand = "DESC";
+ $order = "ASC";
+ else  $order = "DESC";
+
+var_dump($_POST);
+
+// if ($_POST['order'] == "title")
+//   {
+//     $cata = "title";
+//   }
+//   elseif ($_POST['order'] == "date")
+//   {
+//     $cata = "date";
+//   }
+//   elseif ($_POST['order'] == "brand")
+//   {
+//     $cata = "brand";
+//   }
 
 
-  // $order_title = "ASC"; 
- //else  $order_title = "DESC";
- 
-
-$query="SELECT * FROM final_skate ORDER BY brand " . $order_brand . " LIMIT 10 ";
+$query="SELECT * FROM final_skate ORDER BY brand " . $order . " LIMIT 10 ";
 		$statement = $db->prepare($query);
-	
+
 
 		$statement->execute();
 
@@ -26,29 +37,8 @@ $query="SELECT * FROM final_skate ORDER BY brand " . $order_brand . " LIMIT 10 "
 			header("Location: index.php");
 			exit;
 		}
-
-
-
-   
-
-
-$queryB="SELECT * FROM final_skate ORDER BY title " . $order_title . " LIMIT 10 ";
-		$statement = $db->prepare($queryB);
-	
-
-		$statement->execute();
-
-		if($statement->rowCount() <= 0)
-		{
-			header("Location: index.php");
-			exit;
-		}
-
-
     ?>
 
-
-      
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -58,25 +48,21 @@ $queryB="SELECT * FROM final_skate ORDER BY title " . $order_title . " LIMIT 10 
     	<script src="button.js"></script>
   </head>
   <body>
-  
+
      <?php while ($row = $statement->fetch()) : ?>
-     <div>  
+     <div>
      <fieldset>
 
-            <?php if (strlen($row['notes']) > 200) : 
+            <?php if (strlen($row['notes']) > 200) :
              $link = '<a href="show.php?id=' . $row['id'] . '"></a>';
             ?>
-            
 
-    
           <legend><a href="show.php?id=<?=$row['id']?>"><?=$row['title']?></a></legend>
-          <p>
 
       <!--
             order is desc or make
                    conditona put if around it
                    name sort value sort desc -->
-
           <p>
   					<small>
   						<?=date_format(date_create($row['datetimestamp']), "F d, o, h:i a")?> -
@@ -99,18 +85,27 @@ $queryB="SELECT * FROM final_skate ORDER BY title " . $order_title . " LIMIT 10 
           </h4>
         </p>
       </fieldset>
-        
-        
+
            <?php endif ?>
            </div>
            <?php endwhile ?>
 
-     
 
+   <!-- <form method= post> -->
 
+     <br><br>
+     <!-- <input type="submit" value="Submit"> -->
+   </form>
 
-<form method = post>
-<?php if ($order_brand == "DESC") : ?>
+<!-- <form method = post>
+  <label for="order">Sort by catagory:</label>
+  <select name="order" id="sort">
+    <option value="title">title</option>
+    <option value="date">date</option>
+    <option value="brand">brand</option>
+  </select> -->
+
+<?php if ($order == "DESC") : ?>
     <button id= "sort" name= "order" value= "ASC" >Sort Catagory ⏫</button>
 
     <?php else : ?>
@@ -120,21 +115,9 @@ $queryB="SELECT * FROM final_skate ORDER BY title " . $order_title . " LIMIT 10 
 
 </form>
 
-<form method = post>
-<?php if ($order_title == "DESC") : ?>
-    <button id= "sort2" name= "order" value= "ASC" >Newest⏳</button>
 
-    <?php else : ?>
-
-    <button id= "sort2" name= "order" value= "DESC" >Oldest⌛</button>
-    <?php endif ?>
-
-</form>
 
 
 
   </body>
 </html>
-
-
-
