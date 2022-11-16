@@ -1,43 +1,58 @@
-<?php
- require 'connector.php';
+﻿<?php
 
- $query="SELECT * FROM final_skate ORDER BY id DESC LIMIT 10";
+require 'connector.php';
 
- // Returns a PDOStatement object.
- $statement = $db->prepare($query);
+if ($_POST['order'] == "ASC") 
+   // echo "yes";
+    //else 
+   // echo "no";
 
- $statement->execute();
- $data = $statement->fetchAll();
- ?>
+ $order = "ASC"; 
+ else $order = "DESC";
 
+$query="SELECT * FROM final_skate ORDER BY brand " . $order . " LIMIT 10 ";
+		$statement = $db->prepare($query);
+	
+
+		$statement->execute();
+
+		if($statement->rowCount() <= 0)
+		{
+			header("Location: index.php");
+			exit;
+		}
+
+
+    ?>
+
+      
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+            <link rel="stylesheet" href="styles.css" type="text/css">
+    	<script src="button.js"></script>
+  </head>
+  <body>
+  
+     <?php while ($row = $statement->fetch()) : ?>
+     <div>  
+     <fieldset>
 
-  <!-- Title goes here -->
-  <title>Final Project - Personal Use Corporation</title>
+            <?php if (strlen($row['notes']) > 200) : 
+             $link = '<a href="show.php?id=' . $row['id'] . '"></a>';
+            ?>
+            
 
-  <link rel="stylesheet" href="style_index.css" type="text/css">
-</head>
-<body>
-  <h1><a href="index.php">The Personal Use Corporation ::skateboard component:: *judgment of quality system™*</a></h1>
-  <ul id="menu">
-      <li><a href="index.php" class='active'>Home</a></li>
-      <li><a href="create.php">New Entry</a></li>
-  </ul>
-
-
-
-  <?php  foreach($data as $row) {  ?>
-      <div class="deck_post">
-
-        <fieldset>
+    
           <legend><a href="show.php?id=<?=$row['id']?>"><?=$row['title']?></a></legend>
           <p>
 
-      
-
+      <!--
+            order is desc or make
+                   conditona put if around it
+                   name sort value sortdesc -->
  <!-- the time stamp for homepage -->
           <p>
   					<small>
@@ -48,21 +63,55 @@
           <h4>Brand: <a <?=$row['id']?>> <?=$row['brand']?> </a></h4>
 
 <!-- The notes section with read more option -->
-          <h4> Notes:
-            <?php if (strlen($row['notes']) > 200)
-            {
-              $link = '<a href="show.php?id=' . $row['id'] . '">Read more</a>';
-              echo substr($row['notes'], 0, 100) . '...' . $link;
-            }
-            else
-            {
-              echo $row['notes'];
-            }?>
+            <h4> Notes:
+              <?php if (strlen($row['notes']) > 200)
+              {
+                $link = '<a href="show.php?id=' . $row['id'] . '">Read more</a>';
+                echo substr($row['notes'], 0, 100) . '...' . $link;
+              }
+              else
+              {
+                echo $row['notes'];
+              }?>
           </h4>
         </p>
       </fieldset>
+        
+        
+           <?php endif ?>
+           </div>
+           <?php endwhile ?>
 
-    <?php } ?>
-  <div id="footer">2022 - Copyright™</div>
+     
+
+
+
+<form method = post>
+<?php if ($order == "DESC") : ?>
+    <button id= "sort" name= "order" value= "ASC" >Sort Catagory ⏫</button>
+
+    <?php else : ?>
+
+    <button id= "sort" name= "order" value= "DESC" >Sort Catagory⏬</button>
+    <?php endif ?>
+
+</form>
+
+<form method = post>
+<?php if ($order == "DESC") : ?>
+    <button id= "sort2" name= "order" value= "ASC" >Newest⏳</button>
+
+    <?php else : ?>
+
+    <button id= "sort2" name= "order" value= "DESC" >Oldest⌛</button>
+    <?php endif ?>
+
+</form>
+
+
+
   </body>
 </html>
+
+
+
