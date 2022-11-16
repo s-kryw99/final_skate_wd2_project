@@ -10,23 +10,22 @@ if ($_POST['order'] == "ASC")
  $order = "ASC";
  else  $order = "DESC";
 
-var_dump($_POST);
-
-// if ($_POST['order'] == "title")
-//   {
-//     $cata = "title";
-//   }
-//   elseif ($_POST['order'] == "date")
-//   {
-//     $cata = "date";
-//   }
-//   elseif ($_POST['order'] == "brand")
-//   {
-//     $cata = "brand";
-//   }
+if ($_POST['taskOption'] == "title")
+// echo "yes ";
+//  else
+// echo "no ";
+$cata = "title";
 
 
-$query="SELECT * FROM final_skate ORDER BY brand " . $order . " LIMIT 10 ";
+elseif ($_POST['taskOption'] == "brand")
+$cata = "brand";
+
+else $cata = "datetimestamp";
+// var_dump($cata);
+// var_dump($_POST);
+
+
+$query="SELECT * FROM final_skate ORDER BY " . $cata . " " . $order . " LIMIT 10 ";
 		$statement = $db->prepare($query);
 
 
@@ -85,26 +84,13 @@ $query="SELECT * FROM final_skate ORDER BY brand " . $order . " LIMIT 10 ";
           </h4>
         </p>
       </fieldset>
-
            <?php endif ?>
            </div>
            <?php endwhile ?>
 
 
-   <!-- <form method= post> -->
 
-     <br><br>
-     <!-- <input type="submit" value="Submit"> -->
-   </form>
-
-<!-- <form method = post>
-  <label for="order">Sort by catagory:</label>
-  <select name="order" id="sort">
-    <option value="title">title</option>
-    <option value="date">date</option>
-    <option value="brand">brand</option>
-  </select> -->
-
+<form method = post>
 <?php if ($order == "DESC") : ?>
     <button id= "sort" name= "order" value= "ASC" >Sort Catagory ⏫</button>
 
@@ -112,6 +98,13 @@ $query="SELECT * FROM final_skate ORDER BY brand " . $order . " LIMIT 10 ";
 
     <button id= "sort" name= "order" value= "DESC" >Sort Catagory⏬</button>
     <?php endif ?>
+
+    <select name="taskOption">
+      <option value="title">Title</option>
+      <option value="brand">Brand</option>
+      <option value="datetimestamp">Date</option>
+    </select>
+    <!-- <button id= "sort" name= "order" value= "yes" >Sort Catagory</button> -->
 
 </form>
 
