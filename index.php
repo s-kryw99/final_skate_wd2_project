@@ -7,10 +7,15 @@ if ($_POST['order'] == "ASC")
     //else 
    // echo "no";
 
- $order = "ASC"; 
- else $order = "DESC";
+ $order_brand = "ASC"; 
+ else  $order_brand = "DESC";
 
-$query="SELECT * FROM final_skate ORDER BY brand " . $order . " LIMIT 10 ";
+
+  // $order_title = "ASC"; 
+ //else  $order_title = "DESC";
+ 
+
+$query="SELECT * FROM final_skate ORDER BY brand " . $order_brand . " LIMIT 10 ";
 		$statement = $db->prepare($query);
 	
 
@@ -23,7 +28,25 @@ $query="SELECT * FROM final_skate ORDER BY brand " . $order . " LIMIT 10 ";
 		}
 
 
+
+   
+
+
+$queryB="SELECT * FROM final_skate ORDER BY title " . $order_title . " LIMIT 10 ";
+		$statement = $db->prepare($queryB);
+	
+
+		$statement->execute();
+
+		if($statement->rowCount() <= 0)
+		{
+			header("Location: index.php");
+			exit;
+		}
+
+
     ?>
+
 
       
 <!DOCTYPE html>
@@ -52,8 +75,8 @@ $query="SELECT * FROM final_skate ORDER BY brand " . $order . " LIMIT 10 ";
       <!--
             order is desc or make
                    conditona put if around it
-                   name sort value sortdesc -->
- <!-- the time stamp for homepage -->
+                   name sort value sort desc -->
+
           <p>
   					<small>
   						<?=date_format(date_create($row['datetimestamp']), "F d, o, h:i a")?> -
@@ -87,7 +110,7 @@ $query="SELECT * FROM final_skate ORDER BY brand " . $order . " LIMIT 10 ";
 
 
 <form method = post>
-<?php if ($order == "DESC") : ?>
+<?php if ($order_brand == "DESC") : ?>
     <button id= "sort" name= "order" value= "ASC" >Sort Catagory ⏫</button>
 
     <?php else : ?>
@@ -98,7 +121,7 @@ $query="SELECT * FROM final_skate ORDER BY brand " . $order . " LIMIT 10 ";
 </form>
 
 <form method = post>
-<?php if ($order == "DESC") : ?>
+<?php if ($order_title == "DESC") : ?>
     <button id= "sort2" name= "order" value= "ASC" >Newest⏳</button>
 
     <?php else : ?>
