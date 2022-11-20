@@ -6,7 +6,6 @@
  *
  */
 
-//
 require 'connect.php';
 require 'header.php';
 
@@ -32,12 +31,12 @@ $skate_or_die = $statement->fetchAll();
     <a href="edit.php?id=<?=$skate_or_die[0]['id']?>">edit</a>
   </small>
 </p>
-<h1>Title:  <?=$skate_or_die[0]['title'] ?></h1>
+<h2>Title:  <?=$skate_or_die[0]['title'] ?></h2>
 <h2>Brand:  <?=$skate_or_die[0]['brand'] ?></h2>
-<h3>Rating:  <?=$skate_or_die[0]['rating'] ?></h3>
+<h5>Rating:  <?=$skate_or_die[0]['rating'] ?></h5>
 
-<h3>Length:  <?=$skate_or_die[0]['length']?> cm</h3>
-<h3>Width:  <?=$skate_or_die[0]['width'] ?> cm</h3>
+<h4>Length:  <?=$skate_or_die[0]['length']?> cm</h4>
+<h4>Width:  <?=$skate_or_die[0]['width'] ?> cm</h4>
 
 <h4>Release Year:  <?=$skate_or_die[0]['release_year'] ?></h4>
 <h4>Year Used:  <?=$skate_or_die[0]['year_used'] ?></h4>

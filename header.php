@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +14,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+  <!-- <br /><br /> -->
+  <div class="container" style="width:500px;">
+       <h3 align="center"><a href="index.php"> | WD2 | Skateboard Tracking System | </a></h3>
+       <h4 align="center"><a href="index.php">  Personal Use Corporation  </a></h3>
+       <br />
+       <?php;?>
+       <?php echo '<label><a href="logout.php">Logout</a></label>';?>
+
+  </div>
+
 
 <div id="content_area">
 	<header id="header_main">

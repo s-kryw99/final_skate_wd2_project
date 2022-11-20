@@ -6,8 +6,9 @@
  * make new posts to skateboard database.
  *
  */
-// 
-// require ('authenticate.php');
+
+ require 'header.php';
+
 $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
 
 if(isset($_FILES['image']) && $_FILES['image']['error'] === 0)
@@ -51,20 +52,12 @@ function file_upload_path($original_filename, $upload_subfolder_name = 'uploads'
   }
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Deck Rating System ::</title>
-  <link rel="stylesheet" href="style.css" type="text/css">
-</head>
-<body>
-  <div id="wrapper">
-    <div id="header">
+<!-- header.php starts here -->
+    <div>
       <h1><a href="index.php">New Deck Entry Form</a></h1>
     </div>
 
-//echo image id request into hiddem input.
+<!-- //echo image id request into hiddem input. -->
 
 <!-- image upload  -->
     <?php if (!isset($_FILES['image'])) : ?>
@@ -138,11 +131,10 @@ function file_upload_path($original_filename, $upload_subfolder_name = 'uploads'
           <p>
             <input type="submit" name="command" value="Create" />
           </p>
-
         </fieldset>
       </form>
-    </div>
-    <div id="footer">2022 - Copyright™</div>
-  </div>
-</body>
-</html>
+
+
+      <!-- Footer inserted here -->
+      <br /><br />
+      <?php  require 'footer.php'; ?>

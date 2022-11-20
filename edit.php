@@ -7,8 +7,10 @@
  * Date:
  */
 
-	require('connect.php');
-	// require('authenticate.php');
+
+
+ require 'connect.php';
+ require 'header.php';
 
 	if (!empty($_GET['id']))
 	{
@@ -42,26 +44,13 @@
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>WD2 Final - Edit Post</title>
-	<link rel="stylesheet" href="style.css" type="text/css">
-</head>
-<body>
-	<div id="wrapper">
-		<div id="header">
-			<h1><a href="index.php">WD2 Final - Edit Post</a></h1>
-		</div>
-		<ul id="menu">
-			<li><a href="index.php">Home</a></li>
-			<li><a href="create.php">New Post</a></li>
-		</ul>
+
+<!-- header.php starts here -->
+
 		<div id="all_entries">
 			<form action="process_edit.php" method="post">
 				<fieldset>
-					<legend>Edit Entry Post</legend>
+					<legend>Edit Post</legend>
 					<p>
 						<label for="title">Title</label>
 						<input name="title" id="title" value="<?=$row['title']?>">
@@ -102,9 +91,7 @@
 				</fieldset>
 			</form>
 		</div>
-		<div id="footer">
-			Copyleft 2962 - No Rights Reserved
-		</div>
-	</div>
-</body>
-</html>
+
+		<!-- Footer inserted here -->
+		<br /><br />
+		<?php  require 'footer.php'; ?>

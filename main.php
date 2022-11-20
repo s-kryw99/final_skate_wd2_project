@@ -21,40 +21,15 @@
 
 <!-- html header removed here -->
   <!-- added front entry.php -->
-      <br /><br />
-      <div class="container" style="width:500px;">
-           <h3 align="center"><a href="index.php"> WD2 | Skateboard Tracking System | Personal Use Corporation </a></h3>
-           <br />
-           <?php
-           echo '<h1>Welcome - '.$_SESSION["username"].'</h1>';
-           echo '<label><a href="main.php">Logout</a></label>';
-           ?>
-      </div>
-
-<!--
-  <ul id="menu">
-      <li><a href="index.php" class='active'>Home</a></li>
-      <li><a href="create.php">New Entry</a></li>
-  </ul> -->
-
 
 
   <?php  foreach($data as $row) {  ?>
       <div class="deck_post">
-
+<div class="container">
         <fieldset>
+          <p>
           <legend><a href="show.php?id=<?=$row['id']?>"><?=$row['title']?></a></legend>
-          <p>
 
-
-
-  <!-- the time stamp for homepage  -->
-          <p>
-  					<small>
-  						<?=date_format(date_create($row['datetimestamp']), "F d, o, h:i a")?> -
-  						<a href="edit.php?id=<?=$row['id']?>">edit</a>
-  					</small>
-  				</p>
           <h4>Brand: <a <?=$row['id']?>> <?=$row['brand']?> </a></h4>
 
 <!-- The notes section with read more option -->
@@ -68,11 +43,22 @@
               {
                 echo $row['notes'];
               }?>
-          </h4>
-        </p>
-      </fieldset>
+            </h4>
 
+              <!-- the time stamp for homepage  -->
+                        <small>
+                          <?=date_format(date_create($row['datetimestamp']), "F d, o, h:i a")?> -
+                          <a href="edit.php?id=<?=$row['id']?>">edit</a>
+                        </small>
+              <br /><br />
+              <br /><br />
+            </p>
+
+      </fieldset>
+      </div>
     <?php } ?>
 
+
+<!-- footer.php starts here -->
 <br /><br />
  <?php  require 'footer.php'; ?>

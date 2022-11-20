@@ -59,7 +59,11 @@ if(isset($_POST["login"]))
             // $query   = "SELECT * FROM users WHERE user_name = $_POST["username"] AND user_pass = $_POST["password"] AND user_id = $_POST['id'];
             // $query="SELECT * FROM users ORDER BY user_id DESC LIMIT 10";
 
-            $query   = "SELECT * FROM users WHERE user_name = 'username' AND user_pass = 'password' AND user_id";
+            // $query   = "SELECT * FROM users WHERE user_name = $_POST['username'] AND user_pass = $_POST['password'] AND user_id";
+
+
+            $query = "SELECT user_id, user_name, user_pass FROM users WHERE user_name AND user_pass AND user_id";
+
 
             // "SELECT user_id, user_name, user_admin FROM users WHERE user_email='bvincelette@rrc.ca' AND user_pass=$_POST['user_pass'] AND active=1";
 
