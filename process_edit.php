@@ -7,7 +7,7 @@
  * Date:
  */
 
-	require('connector.php');
+	require('connect.php');
 
 	$edit_failure = false;
 

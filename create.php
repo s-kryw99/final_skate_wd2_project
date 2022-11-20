@@ -6,8 +6,8 @@
  * make new posts to skateboard database.
  *
  */
-
-require ('authenticate.php');
+// 
+// require ('authenticate.php');
 $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
 
 if(isset($_FILES['image']) && $_FILES['image']['error'] === 0)
@@ -64,7 +64,7 @@ function file_upload_path($original_filename, $upload_subfolder_name = 'uploads'
       <h1><a href="index.php">New Deck Entry Form</a></h1>
     </div>
 
-
+//echo image id request into hiddem input.
 
 <!-- image upload  -->
     <?php if (!isset($_FILES['image'])) : ?>

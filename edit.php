@@ -7,8 +7,8 @@
  * Date:
  */
 
-	require('connector.php');
-	require('authenticate.php');
+	require('connect.php');
+	// require('authenticate.php');
 
 	if (!empty($_GET['id']))
 	{
@@ -39,6 +39,7 @@
 			header("Location: index.php");
 			exit;
 	}
+
 ?>
 
 <!DOCTYPE html>

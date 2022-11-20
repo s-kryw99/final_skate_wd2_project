@@ -8,7 +8,7 @@
  *
  */
 
-require 'connector.php';
+require 'connect.php';
 
 if ($_POST['command'] == 'Create') {
         // Sanitize user input to escape HTML entities and filter out dangerous characters.
@@ -89,5 +89,6 @@ if ($_POST['command'] == 'Create') {
         header("Location: index.php");
         }
         exit(0);
+
 }
 ?>
