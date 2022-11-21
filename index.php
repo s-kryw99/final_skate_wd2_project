@@ -91,12 +91,6 @@ if(isset($_POST["register"]))
       }
 ?>
 
-
-
-
-
-
-
             <!-- // $query     = "SELECT * FROM users WHERE user_name = $_POST['username'] AND user_pass = $_POST['password']";
             // $query     = "INSERT INTO users (user_name, user_pass, user_id) values (:user_name, :user_pass, :user_id)";
 
