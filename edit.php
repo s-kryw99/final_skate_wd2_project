@@ -7,8 +7,6 @@
  * Date:
  */
 
-
-
  require 'connect.php';
  require 'header.php';
 

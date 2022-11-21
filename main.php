@@ -3,10 +3,10 @@
  require 'header.php';
 
 
-  if(!isset($_SESSION["username"]))
-  {
-       header("location:main.php?action=login");
-  }
+  // if(!isset($_SESSION["username"]))
+  // {
+  //      header("location:main.php?action=login");
+  // }
 
 
  $query="SELECT * FROM final_skate ORDER BY id DESC LIMIT 10";
@@ -17,7 +17,6 @@
  $statement->execute();
  $data = $statement->fetchAll();
  ?>
-
 
 <!-- html header removed here -->
   <!-- added front entry.php -->

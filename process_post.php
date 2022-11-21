@@ -8,7 +8,7 @@
  *
  */
 
-require 'connect.php';
+require 'connector.php';
 
 if ($_POST['command'] == 'Create') {
         // Sanitize user input to escape HTML entities and filter out dangerous characters.

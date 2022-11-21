@@ -19,15 +19,17 @@ if(isset($_POST["register"]))
 
           $username  = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
           $password  = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+          $email     = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
           $password  = md5($password);
           $user_id   = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
 
-          $query     = "INSERT INTO users (user_name, user_pass, user_id) values (:user_name, :user_pass, :user_id)";
+          $query     = "INSERT INTO users (user_name, user_pass, user_email, user_id) values (:user_name, :user_pass, :user_email, :user_id)";
 
             $statement = $db->prepare($query);
             $statement->bindValue(':user_name', $username);
             $statement->bindValue(':user_pass', $password);
+            $statement->bindValue(':user_email', $email);
             $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
             $statement->execute();
 
@@ -35,57 +37,103 @@ if(isset($_POST["register"]))
             $insert_id = $db->lastInsertId();
 
           {
-               echo '<script>alert("Registration Done")</script>';
+ // var_dump($password);
+                echo '<script>alert("Registration Done")</script>';
+                     // header("location:index.php?action=register");
           }
-     }
-}
-if(isset($_POST["login"]))
-{
-     if(empty($_POST["username"]) && empty($_POST["password"]) || ($_POST["username"]) && empty($_POST["password"]) || empty($_POST["username"]) && ($_POST["password"]))
-     {
-          echo '<script>alert("Both Fields are required")</script>';
-     }
-     else
-     {
-          $username  = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-          $password  = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-          $password  = md5($password);
-          $user_id   = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-          // $query     = "SELECT * FROM users WHERE user_name = $_POST['username'] AND user_pass = $_POST['password']";
+
+        }
+     }
+
+
+     if(isset($_POST["login"]))
+     {
+          if(empty($_POST["username"]) && empty($_POST["password"]) || ($_POST["username"]) && empty($_POST["password"]) || empty($_POST["username"]) && ($_POST["password"]))
+          {
+              echo '<script>alert("Both Fields are required")</script>';
+        }
+        else
+        {
+             $username  = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+             $password  = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+             $password  = md5($password);
+             $user_id   = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+             $query   = "SELECT * FROM users WHERE user_name = $username AND user_pass = $password AND user_id = $user_id";
+
+
+             $hash = password_hash('password', PASSWORD_DEFAULT);
+
+             var_dump($hash);
+             var_dump($password);
+             var_dump($_POST['password']);
+
+             if (password_verify('password', $hash)) {
+                 echo 'Password is valid!';
+             } else {
+                 echo 'Invalid password.';
+             }
+
+
+             if($hash == true)
+             // if('password' == $hash)
+             {
+               echo "yes";
+               header("location:main.php");
+               exit;
+             }
+             else
+             {
+               exit;
+              }
+           }
+      }
+?>
+
+
+
+
+
+
+
+            <!-- // $query     = "SELECT * FROM users WHERE user_name = $_POST['username'] AND user_pass = $_POST['password']";
             // $query     = "INSERT INTO users (user_name, user_pass, user_id) values (:user_name, :user_pass, :user_id)";
 
             // $query   = "SELECT * FROM users WHERE user_name = $username AND user_pass = $password AND user_id = $user_id";
-            // $query   = "SELECT * FROM users WHERE user_name = $_POST["username"] AND user_pass = $_POST["password"] AND user_id = $_POST['id'];
-            // $query="SELECT * FROM users ORDER BY user_id DESC LIMIT 10";
 
             // $query   = "SELECT * FROM users WHERE user_name = $_POST['username'] AND user_pass = $_POST['password'] AND user_id";
-
-
-            $query = "SELECT user_id, user_name, user_pass FROM users WHERE user_name AND user_pass AND user_id";
-
-
             // "SELECT user_id, user_name, user_admin FROM users WHERE user_email='bvincelette@rrc.ca' AND user_pass=$_POST['user_pass'] AND active=1";
-
-            $statement = $db->prepare($query);
-
-            $statement->execute();
-            $data = $statement->fetchAll();
-
-
-            if($data > 0)
-            {
-                 $_SESSION['username'] = $username;
-                 header("location:main.php");
-            }
-            else
-            {
-                 echo '<script>alert("Wrong User Details")</script>';
-            }
-       }
-    }
-
-?>
+//
+//             $query = "SELECT (user_name, user_pass, user_id) values (:user_name, :user_pass, :user_id) FROM users WHERE user_name = 'username' AND user_pass = 'password' AND user_id = 'id'";
+//
+// var_dump($_POST['username']);
+// var_dump($_POST['password']);
+//
+//             $statement = $db->prepare($query);
+//             $statement->bindValue(':user_name', $username);
+//             $statement->bindValue(':user_pass', $password);
+//             $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+//         		$statement->execute();
+//
+// var_dump($statement->rowCount());
+// // var_dump($data);
+//
+//
+//               if($statement->rowCount() > 0)
+//             {
+//               echo "yes";
+//
+//
+//                  header("location:main.php");
+//                  exit;
+//             }
+//
+//             else
+//             {
+//
+//                  // exit;
+//             } -->
 
 
 <!DOCTYPE html>
@@ -102,10 +150,12 @@ if(isset($_POST["login"]))
                <h3 align="center">PHP Login Registration Form with md5() Password Encryption</h3>
                <h3 align="center"> WD2 | Skateboard Tracking System   Personal Use Corporation</h3>
                <br />
-               <?php
-               if(isset($_GET["action"]) == "login")
-               {
-               ?>
+
+<?php
+if(isset($_GET["action"]) == "login")
+{
+?>
+
                <h3 align="center">Login</h3>
                <br />
                <form method="post">
@@ -119,11 +169,13 @@ if(isset($_POST["login"]))
                     <br />
                     <p align="center"><a href="index.php">Register</a></p>
                </form>
-               <?php
-               }
-               else
-               {
-               ?>
+
+<?php
+}
+else
+{
+?>
+
                <h3 align="center">Register</h3>
                <br />
                <form method="post">
@@ -133,15 +185,20 @@ if(isset($_POST["login"]))
                     <label>Enter Password</label>
                     <input type="password" name="password" class="form-control" />
                     <br />
+                    <label>Enter Email</label>
+                    <input type="email" name="email" class="form-control" />
+                    <br />
                     <input type="submit" name="register" value="Register" class="btn btn-info" />
                     <br />
                     <p align="center"><a href="index.php?action=login">Login</a></p>
                </form>
-               <?php
-               }
-               ?>
-          </div>
-     </body>
-</html>
+<?php
+}
+?>
+            </div>
+        </body>
+     </html>
 
+
+<!-- footer.php starts here -->
 <?php require 'footer.php';?>
