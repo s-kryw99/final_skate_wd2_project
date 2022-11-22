@@ -8,6 +8,7 @@
 
 require 'connect.php';
 require 'header.php';
+require 'home_create_menu.php';
 
 $id = $_GET['id'];
 
@@ -18,12 +19,9 @@ $statement->bindValue(':id', $id, PDO::PARAM_INT);
 // Execute the SELECT and fetch the single row returned.
 $statement->execute();
 $skate_or_die = $statement->fetchAll();
-
 ?>
 
-
 <!-- header inserted here -->
-
 <!-- //date -->
  <small>
     <?=date("F d, Y, h:i a",strtotime($skate_or_die[0]['datetimestamp']))?>
@@ -48,7 +46,8 @@ $skate_or_die = $statement->fetchAll();
 <?php
 if(isset($skate_or_die[0]['sp_image']))
 	{
-    	 echo '<p><img src= "uploads/'. $skate_or_die[0]['sp_image'] . '"></p>';
+    	 echo '<p><img width="400" height="500" src= "uploads/'. $skate_or_die[0]['sp_image'] . '"></p>';
+
 	}
 ?>
 

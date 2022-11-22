@@ -1,6 +1,7 @@
 <?php
  require 'connect.php';
  require 'header.php';
+ require 'home_create_menu.php';
   // if(!isset($_SESSION["username"]))
   // {
   //      header("location:main.php?action=login");
@@ -43,6 +44,8 @@
   	header("Location: main.php");
   	exit;
   }
+
+
  ?>
 
 

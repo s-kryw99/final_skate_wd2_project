@@ -1,6 +1,6 @@
 <?php
 require 'connect.php';
-
+require 'header.php';
 
 if(isset($_SESSION["username"]))
 {
@@ -8,26 +8,22 @@ if(isset($_SESSION["username"]))
 }
 if(isset($_POST["register"]))
 {
-     if(empty($_POST["username"]) && empty($_POST["password"]) || ($_POST["username"]) && empty($_POST["password"]) || empty($_POST["username"]) && ($_POST["password"]))
+     if(empty($_POST["username"]) || empty($_POST["password"]))
      {
           echo '<script>alert("Both Fields are required")</script>';
      }
      else
      {
-          // $username = mysqli_real_escape_string($connect, $_POST["username"]);
-          // $password = mysqli_real_escape_string($connect, $_POST["password"]);
-
           $username  = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
           $password  = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
           $email     = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-          $password  = md5($password);
+          $password  = password_hash($password, PASSWORD_DEFAULT);
           $user_id   = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-
 
           $query     = "INSERT INTO users (user_name, user_pass, user_email, user_id) values (:user_name, :user_pass, :user_email, :user_id)";
 
             $statement = $db->prepare($query);
-            $statement->bindValue(':user_name', $username);
+            $statement->bindValue(':user_name', $username); //search and replace, searches for tag , replaces with value.
             $statement->bindValue(':user_pass', $password);
             $statement->bindValue(':user_email', $email);
             $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -35,21 +31,16 @@ if(isset($_POST["register"]))
 
             // Determine the primary key of the inserted row.
             $insert_id = $db->lastInsertId();
-
           {
- // var_dump($password);
                 echo '<script>alert("Registration Done")</script>';
                      // header("location:index.php?action=login");
           }
-
-
         }
      }
 
-
      if(isset($_POST["login"]))
      {
-          if(empty($_POST["username"]) && empty($_POST["password"]) || ($_POST["username"]) && empty($_POST["password"]) || empty($_POST["username"]) && ($_POST["password"]))
+          if(empty($_POST["username"]) || empty($_POST["password"]))
           {
               echo '<script>alert("Both Fields are required")</script>';
         }
@@ -57,77 +48,55 @@ if(isset($_POST["register"]))
         {
              $username  = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
              $password  = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-             $password  = md5($password);
-             $user_id   = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+             // $user_id   = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-             $query   = "SELECT * FROM users WHERE user_name = $username AND user_pass = $password AND user_id = $user_id";
+             $query     = "SELECT * FROM users WHERE user_name = :user_name";
+
+             $statement = $db->prepare($query);
+             $statement->bindValue(':user_name', $username);
+             $statement->execute();
+             $row=$statement->fetch();
+
+//  echo $password;
+// echo '<br>';
+//  echo $username;
+//  echo '<br>';
+// // var_dump(password_verify($row['user_pass'], $password));
+// echo '<br>';
+// var_dump(password_verify($password, $row['user_pass']));
+// echo '<br>';
+// var_dump($row['user_pass']);
+// echo '<br>';
 
 
-             $hash = password_hash('password', PASSWORD_DEFAULT);
-
-             var_dump($hash);
-             var_dump($password);
-             var_dump($_POST['password']);
-
-             if (password_verify('password', $hash)) {
-                 echo 'Password is valid!';
-             } else {
-                 echo 'Invalid password.';
-             }
-
-
-             if($hash == true)
-             // if('password' == $hash)
+             if (password_verify($password, $row['user_pass']))
              {
-               echo "yes";
-               header("location:main.php");
-               exit;
-             }
+                  // echo '<script>alert("Password is valid!")</script>';
+                  $_SESSION['status_valid'] = "Password is Valid";
+                 header("location:main.php");
+                 exit;
+               }
              else
              {
-               exit;
-              }
+                 echo '<script>alert("Invalid password.")</script>';
+                 // $_SESSION(echo 'Access Granted');
+             }
+//putmessage into seession var and then go to main.
+// then on main you have something there that says is that session variable set? if so display the message.
+// afterdisplay message . then unset that varible.
+
+             // if($password)
+             // // if('password' == $hash)
+             // {
+             //   echo "yes";
+             // }
+             // else
+             // {
+             //   exit;
+             //  }
            }
       }
 ?>
-
-            <!-- // $query     = "SELECT * FROM users WHERE user_name = $_POST['username'] AND user_pass = $_POST['password']";
-            // $query     = "INSERT INTO users (user_name, user_pass, user_id) values (:user_name, :user_pass, :user_id)";
-
-            // $query   = "SELECT * FROM users WHERE user_name = $username AND user_pass = $password AND user_id = $user_id";
-
-            // $query   = "SELECT * FROM users WHERE user_name = $_POST['username'] AND user_pass = $_POST['password'] AND user_id";
-            // "SELECT user_id, user_name, user_admin FROM users WHERE user_email='bvincelette@rrc.ca' AND user_pass=$_POST['user_pass'] AND active=1";
-//
-//             $query = "SELECT (user_name, user_pass, user_id) values (:user_name, :user_pass, :user_id) FROM users WHERE user_name = 'username' AND user_pass = 'password' AND user_id = 'id'";
-//
-// var_dump($_POST['username']);
-// var_dump($_POST['password']);
-//
-//             $statement = $db->prepare($query);
-//             $statement->bindValue(':user_name', $username);
-//             $statement->bindValue(':user_pass', $password);
-//             $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-//         		$statement->execute();
-//
-// var_dump($statement->rowCount());
-// // var_dump($data);
-//
-//
-//               if($statement->rowCount() > 0)
-//             {
-//               echo "yes";
-//
-//
-//                  header("location:main.php");
-//                  exit;
-//             }
-//
-//             else
-//             {
-//
-//                  // exit;
-//             } -->
 
 
 <!DOCTYPE html>

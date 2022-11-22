@@ -8,6 +8,7 @@
  */
 
  require 'header.php';
+ require 'home_create_menu.php';
 
 $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
 
@@ -87,7 +88,7 @@ function file_upload_path($original_filename, $upload_subfolder_name = 'uploads'
 <?php } ?>
 
 
-  
+
       <form action="process_post.php" method="post">
         <fieldset>
           <legend>New Deck Entry Form</legend>

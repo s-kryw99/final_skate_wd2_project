@@ -11,10 +11,6 @@
 
 	$edit_failure = false;
 
-
-
-
-
 	if (!empty($_POST['command']) && $_POST['command'] == 'Update')
 	{
 		if ($_POST && !empty($_POST['title']) && !empty($_POST['notes']) && !empty($_POST['id']) && !empty($_POST['year_used'])
@@ -102,9 +98,8 @@
 		<p>Both the title and content must contain at least one character. </p>
 		<a href="index.php">Return Home</a>
 <?php endif ?>
-		<div id="footer">
-			Copyleft 2962 - No Rights Reserved
-		</div>
-	</div>
-</body>
-</html>
+
+
+			<!-- Footer inserted here -->
+		<br /><br />
+		<?php  require 'footer.php'; ?>

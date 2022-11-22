@@ -9,6 +9,7 @@
 
  require 'connect.php';
  require 'header.php';
+ require 'home_create_menu.php';
 
 	if (!empty($_GET['id']))
 	{
