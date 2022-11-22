@@ -41,20 +41,18 @@ $skate_or_die = $statement->fetchAll();
 <h4>Release Year:  <?=$skate_or_die[0]['release_year'] ?></h4>
 <h4>Year Used:  <?=$skate_or_die[0]['year_used'] ?></h4>
 
-<h4>Image:  <?=$skate_or_die[0]['sp_image'] ?></h4>
-
 <h2>Notes:  <?=$skate_or_die[0]['notes']?></h2>
 </div>
 </div>
-
 
 <?php
 if(isset($skate_or_die[0]['sp_image']))
 	{
     	 echo '<p><img src= "uploads/'. $skate_or_die[0]['sp_image'] . '"></p>';
 	}
+?>
 
- var_dump($skate_or_die[0]['sp_image']); ?>
+
 <!-- Footer inserted here -->
 <br /><br />
 <?php  require 'footer.php'; ?>
