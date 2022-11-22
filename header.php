@@ -32,7 +32,7 @@
 	<nav id="menu">
     <br /><br />
 		<ul>
-			<li><a href="index.php">Home</a></li>
+			<li><a href="main.php">Home</a></li>
 			<li><a href="create.php">New Post</a></li>
 		</ul>
 	</nav>

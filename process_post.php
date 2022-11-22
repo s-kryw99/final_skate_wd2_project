@@ -8,22 +8,25 @@
  *
  */
 
-require 'connector.php';
+require 'connect.php';
 
 if ($_POST['command'] == 'Create') {
         // Sanitize user input to escape HTML entities and filter out dangerous characters.
-        $title  = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $brand  = filter_input(INPUT_POST, 'brand', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $rating = filter_input(INPUT_POST, 'rating', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $title        = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $brand        = filter_input(INPUT_POST, 'brand', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $rating       = filter_input(INPUT_POST, 'rating', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         $length       = filter_input(INPUT_POST, 'length', FILTER_SANITIZE_NUMBER_INT);
         $width        = filter_input(INPUT_POST, 'width', FILTER_SANITIZE_NUMBER_INT);
+        $sp_image   = filter_input(INPUT_POST, 'sp_image', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         $release_year = filter_input(INPUT_POST, 'release_year', FILTER_SANITIZE_NUMBER_INT);
-        $year_used  = filter_input(INPUT_POST, 'year_used', FILTER_SANITIZE_NUMBER_INT);
+        $year_used    = filter_input(INPUT_POST, 'year_used', FILTER_SANITIZE_NUMBER_INT);
 
-        $notes  = filter_input(INPUT_POST, 'notes', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $id     = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $notes        = filter_input(INPUT_POST, 'notes', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $id           = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+
 
 
         if (empty($title)) {
@@ -59,7 +62,7 @@ if ($_POST['command'] == 'Create') {
         }
 
          // Build the parameterized SQL query and bind sanitized values to the parameters
-         $query     = "INSERT INTO final_skate (title, brand, rating, length, width, release_year, year_used, notes, id) values (:title, :brand, :rating, :length, :width, :release_year, :year_used, :notes, :id)";
+         $query     = "INSERT INTO final_skate (title, brand, rating, length, width, release_year, year_used, sp_image, notes, id) values (:title, :brand, :rating, :length, :width, :release_year, :year_used, :sp_image, :notes, :id)";
 
          $statement = $db->prepare($query);
          $statement->bindValue(':title', $title);
@@ -68,6 +71,7 @@ if ($_POST['command'] == 'Create') {
 
          $statement->bindValue(':length', $length);
          $statement->bindValue(':width', $width);
+         $statement->bindValue(':sp_image', $sp_image);
 
          $statement->bindValue(':release_year', $release_year);
          $statement->bindValue(':year_used', $year_used);
@@ -86,7 +90,7 @@ if ($_POST['command'] == 'Create') {
         }
         else
         {
-        header("Location: index.php");
+        header("Location: main.php");
         }
         exit(0);
 

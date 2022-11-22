@@ -39,7 +39,7 @@ if(isset($_POST["register"]))
           {
  // var_dump($password);
                 echo '<script>alert("Registration Done")</script>';
-                     // header("location:index.php?action=register");
+                     // header("location:index.php?action=login");
           }
 
 

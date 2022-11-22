@@ -57,13 +57,12 @@ function file_upload_path($original_filename, $upload_subfolder_name = 'uploads'
       <h1><a href="index.php">New Deck Entry Form</a></h1>
     </div>
 
-<!-- //echo image id request into hiddem input. -->
 
 <!-- image upload  -->
     <?php if (!isset($_FILES['image'])) : ?>
 
       <form method="post" enctype="multipart/form-data">
-        <label for="image">Image Filename:</label>
+      <label hidden for="image">Image Filename:</label>
         <input type="file" name="image" id="image">
         <input type="submit" name="submit" value="Upload Image">
       </form>
@@ -88,11 +87,7 @@ function file_upload_path($original_filename, $upload_subfolder_name = 'uploads'
 <?php } ?>
 
 
-    <ul id="menu">
-      <li><a href="index.php">Home</a></li>
-      <li><a href="create.php" class='active'>New Entry</a></li>
-    </ul>
-    <div id="Faces">
+  
       <form action="process_post.php" method="post">
         <fieldset>
           <legend>New Deck Entry Form</legend>
@@ -124,6 +119,11 @@ function file_upload_path($original_filename, $upload_subfolder_name = 'uploads'
             <label for="rating">Rating</label>
             <input name="rating" id="rating" />
           </p>
+          <!-- //echo image id request into hiddem input. -->
+          <p>
+           <label hidden>img filename</label>
+           <input type="hidden" name="sp_image" value="<?php echo htmlspecialchars($image_filename);?>" />
+           </p>
           <p>
             <label for="notes">Notes</label>
             <textarea name="notes" id="notes"></textarea>
