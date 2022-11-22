@@ -56,6 +56,14 @@ TODO:
 
 -get select box options to stay after click when chosen.
 
+-match basc styling accross all pages
+
+-  fix login confirm (it stoped showing)
+
+-registration should land on login page
+
+- cancel seesion autofills on registration page.
+
 
 
 
