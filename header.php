@@ -20,19 +20,4 @@
        <h3 align="center"><a href="main.php"> | WD2 | Skateboard Tracking System | </a></h3>
        <h4 align="center"><a href="main.php">  Personal Use Corporation  </a></h3>
        <br />
-       <?php;?>
-       <?php echo '<label><a href="logout.php">Logout</a></label>';?>
-
   </div>
-
-
-<!-- <div id="content_area">
-	<header id="header_main">
-	</header>
-	<nav id="menu">
-    <br /><br />
-		<ul>
-			<li><a href="main.php">Home</a></li>
-			<li><a href="create.php">New Post</a></li>
-		</ul>
-	</nav> -->

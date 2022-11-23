@@ -2,6 +2,7 @@
  require 'connect.php';
  require 'header.php';
  require 'home_create_menu.php';
+ require 'exit_page.php';
   // if(!isset($_SESSION["username"]))
   // {
   //      header("location:main.php?action=login");
@@ -49,7 +50,22 @@
  ?>
 
 
+
 <!-- html header starts here -->
+
+
+  <?php
+
+  if(isset($_SESSION['status_valid']))
+  {
+    echo $_SESSION['status_valid'];
+    unset($_SESSION['status_valid']);
+  }
+
+
+  ?>
+
+
   <?php  foreach($data as $row) {  ?>
       <div class="deck_post">
 <div class="container">

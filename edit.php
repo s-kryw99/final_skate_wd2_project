@@ -10,6 +10,7 @@
  require 'connect.php';
  require 'header.php';
  require 'home_create_menu.php';
+ require 'exit_page.php';
 
 	if (!empty($_GET['id']))
 	{

@@ -9,6 +9,7 @@
 require 'connect.php';
 require 'header.php';
 require 'home_create_menu.php';
+ require 'exit_page.php';
 
 $id = $_GET['id'];
 

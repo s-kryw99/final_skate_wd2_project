@@ -68,7 +68,6 @@ if(isset($_POST["register"]))
 // var_dump($row['user_pass']);
 // echo '<br>';
 
-
              if (password_verify($password, $row['user_pass']))
              {
                   // echo '<script>alert("Password is valid!")</script>';
@@ -81,37 +80,15 @@ if(isset($_POST["register"]))
                  echo '<script>alert("Invalid password.")</script>';
                  // $_SESSION(echo 'Access Granted');
              }
-//putmessage into seession var and then go to main.
-// then on main you have something there that says is that session variable set? if so display the message.
-// afterdisplay message . then unset that varible.
-
-             // if($password)
-             // // if('password' == $hash)
-             // {
-             //   echo "yes";
-             // }
-             // else
-             // {
-             //   exit;
-             //  }
            }
       }
 ?>
 
 
-<!DOCTYPE html>
-<html>
-     <head>
-          <title>WD2 | Skateboard Tracking System | Personal Use Corporation </title>
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-     </head>
-     <body>
-          <br /><br />
+<!-- <-header.php starts here------------>
           <div class="container" style="width:500px;">
-               <h3 align="center">PHP Login Registration Form with md5() Password Encryption</h3>
-               <h3 align="center"> WD2 | Skateboard Tracking System   Personal Use Corporation</h3>
+               <h3 align="center">Login Registration Form</h3>
+               <h4 align="center">Skateboard Tracking System</h4>
                <br />
 
 <?php
