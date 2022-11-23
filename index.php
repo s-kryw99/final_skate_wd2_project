@@ -34,9 +34,23 @@ if(isset($_POST["register"]))
           {
                 echo '<script>alert("Registration Done")</script>';
                      // header("location:index.php?action=login");
+
           }
         }
      }
+
+   //   $_SESSION['reg_complete'] = "Password is Valid";
+   //   header("location:index.php?action=login")
+   //   exit;
+   // }
+   // else
+   // {
+   //   echo '<script>alert("Registration Successful")</script>';
+   // }
+
+
+
+
 
      if(isset($_POST["login"]))
      {
@@ -57,20 +71,8 @@ if(isset($_POST["register"]))
              $statement->execute();
              $row=$statement->fetch();
 
-//  echo $password;
-// echo '<br>';
-//  echo $username;
-//  echo '<br>';
-// // var_dump(password_verify($row['user_pass'], $password));
-// echo '<br>';
-// var_dump(password_verify($password, $row['user_pass']));
-// echo '<br>';
-// var_dump($row['user_pass']);
-// echo '<br>';
-
              if (password_verify($password, $row['user_pass']))
              {
-                  // echo '<script>alert("Password is valid!")</script>';
                   $_SESSION['status_valid'] = "Password is Valid";
                  header("location:main.php");
                  exit;
@@ -78,7 +80,6 @@ if(isset($_POST["register"]))
              else
              {
                  echo '<script>alert("Invalid password.")</script>';
-                 // $_SESSION(echo 'Access Granted');
              }
            }
       }

@@ -63,19 +63,25 @@ TODO:
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-- cancel seesion autofills on registration page.
+
+
+
 
 -fix warnings from sort button that disapear after pressing it.
 
--resize images on display
 
--fix sort so option stays
+
+
+- cancel seesion autofills on registration page.
 
 -registration should land on login page
 
+
+
 -match basic styling accross all pages
 
--get select box options to stay after click when chosen.
+
+
 
 
 

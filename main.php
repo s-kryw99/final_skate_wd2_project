@@ -3,38 +3,24 @@
  require 'header.php';
  require 'home_create_menu.php';
  require 'exit_page.php';
-  // if(!isset($_SESSION["username"]))
-  // {
-  //      header("location:main.php?action=login");
-  // }
+
 
   if ($_POST['order'] == "ASC")
    $order = "ASC";
    else  $order = "DESC";
 
-  if ($_POST['taskOption'] == "title")
+  if ($_POST['sort_select'] == "title")
   $cata = "title";
 
-  elseif ($_POST['taskOption'] == "brand")
+  elseif ($_POST['sort_select'] == "brand")
   $cata = "brand";
 
   else $cata = "datetimestamp";
 
 
-  // $query="SELECT * FROM final_skate ORDER BY " . $cata . " " . $order . " LIMIT 10 ";
-  		// $statement = $db->prepare($query);
-  		// $statement->execute();
-
-
-  		// if($statement->rowCount() <= 0)
-  		// {
-  		// 	header("Location: main.php");
-  		// 	exit;
-  		// }
-
 // <------------------sort code over--------------------------------------------------->
- // $query="SELECT * FROM final_skate ORDER BY id DESC LIMIT 10";
  $query="SELECT * FROM final_skate ORDER BY " . $cata . " " . $order . " LIMIT 10 ";
+
  // Returns a PDOStatement object.
  $statement = $db->prepare($query);
  $statement->execute();
@@ -45,25 +31,24 @@
   	header("Location: main.php");
   	exit;
   }
-
-
  ?>
 
 
-
 <!-- html header starts here -->
-
-
   <?php
-
   if(isset($_SESSION['status_valid']))
   {
     echo $_SESSION['status_valid'];
     unset($_SESSION['status_valid']);
   }
-
-
   ?>
+  <!--
+  if(isset($_SESSION['reg_complete']))
+  {
+    echo $_SESSION['reg_complete'];
+    unset($_SESSION['reg_complete']);
+  }
+  -->
 
 
   <?php  foreach($data as $row) {  ?>
@@ -101,16 +86,22 @@
 <!---list sorter html starts here------------------------------------------------------->
     <form method = post>
 <?php if ($order == "DESC") : ?>
-    <button id= "sort" name= "order" value= "ASC" >Sort Catagory ⏫</button>
+    <button id= "sort" name= "order" value= "ASC" >Sort Catagory⏫</button>
     <?php else : ?>
     <button id= "sort" name= "order" value= "DESC" >Sort Catagory⏬</button>
     <?php endif ?>
 
-    <select name="taskOption">
+    <select name="sort_select" id="sort_select">
+      <!-- <option value="" selected disabled hidden>Choose here</option> -->
       <option value="title">Title</option>
       <option value="brand">Brand</option>
-      <option value="datetimestamp">Date</option>
+      <option selected value="datetimestamp">Date</option>
     </select>
+
+    <script type="text/javascript">
+  document.getElementById('sort_select').value = "<?php echo $_POST['sort_select'];?>";
+</script>
+
 </form>
 
 
