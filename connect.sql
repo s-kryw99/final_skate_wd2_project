@@ -64,10 +64,38 @@ TODO:
 
 - cancel seesion autofills on registration page.
 
+- Only admin / logged-in users can reach this form and create new pages.
+
+-create non user non admin, dont sign in page path
+
+-clicking brand will take you to a datbase of exiting brands to choose from. clicking the brand will show all entries by that band.
+
+- fix decimal entry for width and height
 
 
 
+<?php
+if (isset($_POST[$cata])) {
+     return $_POST[$cata];
+ } else {
+     return;
+ }
+ ?>
+
+
+171.0
+System provides the ability to process, record, and track collections.
+
+Automate this to:
+keep upto date with what has been collected and what needs to be. 
+
+when these things are done togeather they wil produce the most accurate records
+
+if these things are done seperatly it can create gaps in when each is completed, 
 
 
 
+System provides the ability to bill by type of customer.  
+
+(56)
 

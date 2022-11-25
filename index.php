@@ -1,6 +1,16 @@
 <?php
 require 'connect.php';
 require 'header.php';
+//
+// if($_POST["password"] == $_POST["repassword"])
+// {
+  // echo 'yes they match';
+// }
+// else
+// {
+//   echo '<script>alert("Ваші паролі не збігаються.")</script>';
+// }
+//
 
 if(isset($_SESSION["username"]))
 {
@@ -8,11 +18,11 @@ if(isset($_SESSION["username"]))
 }
 if(isset($_POST["register"]))
 {
-     if(empty($_POST["username"]) || empty($_POST["password"]))
+     if(empty($_POST["username"]) || empty($_POST["password"]) || empty($_POST["repassword"]))
      {
-          echo '<script>alert("Both Fields are required")</script>';
+          echo '<script>alert("All Fields are required")</script>';
      }
-     else
+     elseif ($_POST["password"] == $_POST["repassword"])
      {
           $username  = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
           $password  = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -31,12 +41,16 @@ if(isset($_POST["register"]))
 
             // Determine the primary key of the inserted row.
             $insert_id = $db->lastInsertId();
-          {
-                echo '<script>alert("Registration Done")</script>';
-                     // header("location:index.php?action=login");
 
+                echo 'yes they match';
+                echo '<script>alert("Registration Done")</script>';
+                // header("location:index.php?action=login");
           }
-        }
+          else
+          {
+              echo '<script>alert("Ваші паролі не збігаються.")</script>';
+          }
+
      }
 
    //   $_SESSION['reg_complete'] = "Password is Valid";
@@ -62,7 +76,7 @@ if(isset($_POST["register"]))
         {
              $username  = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
              $password  = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-             // $user_id   = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+
 
              $query     = "SELECT * FROM users WHERE user_name = :user_name";
 
@@ -73,7 +87,7 @@ if(isset($_POST["register"]))
 
              if (password_verify($password, $row['user_pass']))
              {
-                  $_SESSION['status_valid'] = "Password is Valid";
+                 $_SESSION['status_valid'] = "Password is Valid";
                  header("location:main.php");
                  exit;
                }
@@ -81,6 +95,8 @@ if(isset($_POST["register"]))
              {
                  echo '<script>alert("Invalid password.")</script>';
              }
+
+
            }
       }
 ?>
@@ -126,6 +142,9 @@ else
                     <label>Enter Password</label>
                     <input type="password" name="password" class="form-control" />
                     <br />
+                    <label>Re-enter Password</label>
+                    <input type="repassword" name="repassword" class="form-control" />
+                    <br />
                     <label>Enter Email</label>
                     <input type="email" name="email" class="form-control" />
                     <br />
@@ -133,6 +152,7 @@ else
                     <br />
                     <p align="center"><a href="index.php?action=login">Login</a></p>
                </form>
+
 <?php
 }
 ?>
