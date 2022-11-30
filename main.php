@@ -4,8 +4,18 @@
  require 'home_create_menu.php';
  require 'exit_page.php';
 
- // $order = "ASC";
+
 // $order = isset($_POST["order"] ) ? $_POST["order"]: '';
+//if post order ? turnary operater
+//you have given turnary op ? an operater. at the & its splits the values
+//if this is true ? >>>post order else (:) ''.
+
+
+$cata = "datetimestamp";
+$order = "ASC";
+
+if ($_POST)
+{
   if ($_POST['order'] == "ASC")
    $order = "ASC";
   else
@@ -17,13 +27,7 @@
 
   elseif ($_POST['sort_select'] == "brand")
   $cata = "brand";
-
-  else $cata = "datetimestamp";
-
-  // error_reporting(0);
-  // $_POST = $lookup_table[$key];
-  // error_reporting(E_ALL);
-  // return $return;
+}
 
 // <------------------sort code over--------------------------------------------------->
  $query="SELECT * FROM final_skate ORDER BY " . $cata . " " . $order . " LIMIT 10 ";
@@ -41,6 +45,12 @@
  ?>
 
 <!-- html header starts here -->
+<div class="container" style="width:500px;">
+     <h3 align="center"><a href="main.php"> | WD2 | Skateboard Tracking System | </a></h3>
+     <h4 align="center"><a href="main.php">  Personal Use Corporation  </a></h3>
+     <br />
+</div>
+
 <!---list sorter html starts here------------------------------------------------------->
     <form method = post>
 <?php if ($order == "DESC") : ?>

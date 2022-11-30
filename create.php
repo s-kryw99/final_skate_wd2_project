@@ -9,7 +9,7 @@
 
  require 'header.php';
  require 'home_create_menu.php';
-  require 'exit_page.php';
+ require 'exit_page.php';
 
 $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
 
@@ -55,10 +55,11 @@ function file_upload_path($original_filename, $upload_subfolder_name = 'uploads'
 ?>
 
 <!-- header.php starts here -->
-    <div>
-      <h1><a href="index.php">New Deck Entry Form</a></h1>
-    </div>
-
+<div class="container" style="width:500px;">
+     <h3 align="center"><a href="main.php"> | WD2 | Skateboard Tracking System | </a></h3>
+     <h4 align="center"><a href="main.php">  Personal Use Corporation  </a></h3>
+     <br />
+</div>
 
 <!-- image upload  -->
     <?php if (!isset($_FILES['image'])) : ?>

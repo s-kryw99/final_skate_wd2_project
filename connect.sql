@@ -71,6 +71,8 @@ TODO:
 -clicking brand will take you to a datbase of exiting brands to choose from. clicking the brand will show all entries by that band.
 
 - fix decimal entry for width and height
+- The security could be as simple as using the provided auth script from the blog assignment, or more complex as defined below.
+- Admin users must have the ability to view all registered users, add users, update users, and delete users.
 
 
 

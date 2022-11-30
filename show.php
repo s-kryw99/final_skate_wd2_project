@@ -23,6 +23,12 @@ $skate_or_die = $statement->fetchAll();
 ?>
 
 <!-- header inserted here -->
+<div class="container" style="width:500px;">
+     <h3 align="center"><a href="main.php"> | WD2 | Skateboard Tracking System | </a></h3>
+     <h4 align="center"><a href="main.php">  Personal Use Corporation  </a></h3>
+     <br />
+</div>
+
 <!-- //date -->
  <small>
     <?=date("F d, Y, h:i a",strtotime($skate_or_die[0]['datetimestamp']))?>

@@ -16,8 +16,8 @@
 <body>
 
   <!-- <br /><br /> -->
-  <div class="container" style="width:500px;">
+  <!-- <div class="container" style="width:500px;">
        <h3 align="center"><a href="main.php"> | WD2 | Skateboard Tracking System | </a></h3>
        <h4 align="center"><a href="main.php">  Personal Use Corporation  </a></h3>
        <br />
-  </div>
+  </div> -->

@@ -42,60 +42,6 @@ KEY STRINGS AND WORDS AND NOTES:::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
-TODO:
-							
-
--fix upload image that resets for if done last
-
-
-
-
-
-- Only admin / logged-in users can reach this form and create new pages.
-
--create non user non admin, dont sign in page path
-
--clicking brand will take you to a datbase of exiting brands to choose from. clicking the brand will show all entries by that band.
-
-- fix decimal entry for width and height
-
-
-
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-
-
-
--fix warnings from sort button that disapear after pressing it.
-
-
-
-
-- cancel seesion autofills on registration page.
-
--registration should land on login page
-
-
-
--match basic styling accross all pages
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
