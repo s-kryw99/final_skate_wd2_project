@@ -1,7 +1,16 @@
 <?php
 require 'connect.php';
 require 'header.php';
-//
+
+// if($_POST["password"] == $_POST["repassword"])
+// {
+//   echo 'yes they match';
+// }
+// else
+// {
+//   echo '<script>alert("Ваші паролі не збігаються.")</script>';
+// }
+
 
 if(isset($_SESSION["username"]))
 {
@@ -41,7 +50,6 @@ if(isset($_POST["register"]))
           {
               echo '<script>alert("Ваші паролі не збігаються.")</script>';
           }
-
      }
 
 
@@ -53,23 +61,26 @@ if(isset($_POST["register"]))
         }
         else
         {
-             $username  = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-             $password  = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+             $username   = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+             $password   = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+             $user_admin = filter_input(INPUT_POST, 'user_admin', FILTER_SANITIZE_NUMBER_INT);
 
+             $query     = "SELECT * FROM users WHERE user_name = :user_name AND user_name = :user_name";
 
-             $query     = "SELECT * FROM users WHERE user_name = :user_name";
 
              $statement = $db->prepare($query);
              $statement->bindValue(':user_name', $username);
+             $statement->bindValue(':user_admin', $user_admin);
              $statement->execute();
              $row=$statement->fetch();
 
-             if (password_verify($password, $row['user_pass']))
+             if (password_verify($password, $row['user_pass']) && $row['user_admin'])
              {
+
                  $_SESSION['user_admin'] = $row['user_admin'];
-                 $_SESSION['id'] = $row['id'];
+
                  $_SESSION['status_valid'] = "Password is Valid";
-                 header("location:main.php");
+                 header("location:admin_landing.php");
                  exit;
                }
              else
@@ -80,16 +91,12 @@ if(isset($_POST["register"]))
       }
 ?>
 
-
 <!-- <-header.php starts here------------>
-   <!-- <h3 align="center"><a href="admin_login.php"> Admin Login </a></h3> -->
-   <!-- <br /><br /> -->
-   <div class="container" style="width:500px;">
-        <h3 align="center"><a href="index.php"> | WD2 | Skateboard Tracking System | </a></h3>
-        <h4 align="center"><a href="index.php">  Personal Use Corporation  </a></h3>
-        <br />
-   </div>
-     <p align="center"><a href="admin_login.php?action=login">Admin Login</a></p>
+<div class="container" style="width:500px;">
+     <h3 align="center"><a href="admin_login.php?action=login"> | WD2 | Skateboard Tracking System | </a></h3>
+     <h4 align="center"><a href="admin_login.php?action=login">  Personal Use Corporation  </a></h3>
+     <br />
+       </div>
           <div class="container" style="width:500px;">
                <h3 align="center">Login Registration Form</h3>
                <h4 align="center">Skateboard Tracking System</h4>
@@ -109,7 +116,7 @@ if(isset($_GET["action"]) == "login")
                     <br />
                     <input type="submit" name="login" value="Login" class="btn btn-info" />
                     <br />
-                    <p align="center"><a href="index.php">Register</a></p>
+                    <p align="center"><a href="index.php"></a></p>
                </form>
 <?php
 }

@@ -9,6 +9,8 @@
 
  require 'connect.php';
  require 'header.php';
+ require 'home_create_menu.php';
+ require 'exit_page.php';
 
 	if (!empty($_GET['id']))
 	{
@@ -44,6 +46,11 @@
 
 
 <!-- header.php starts here -->
+<div class="container" style="width:500px;">
+     <h3 align="center"><a href="main.php"> | WD2 | Skateboard Tracking System | </a></h3>
+     <h4 align="center"><a href="main.php">  Personal Use Corporation  </a></h3>
+     <br />
+</div>
 
 		<div id="all_entries">
 			<form action="process_edit.php" method="post">

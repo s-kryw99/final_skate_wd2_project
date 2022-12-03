@@ -1,0 +1,25 @@
+select TIMESTAMP as your column type
+set the Default value to CURRENT_TIMESTAMP
+then just insert any rows into the table without inserting any values for the time column
+
+
+
+used:
+
+USE serverside_online;
+
+DROP TABLE IF EXISTS skate;
+CREATE TABLE IF NOT EXISTS skate (
+   
+    id INT AUTO_INCREMENT,
+    Title TEXT,
+    Rating TEXT,
+    Brand TEXT,
+    Length DOUBLE,
+    Width DOUBLE,
+    Release_Year INTEGER,
+    Year_Used INTEGER,
+    Notes VARCHAR(200),
+    `date` TIMESTAMP NOT NULL DEFAULT CURRENT_DATE(),
+     PRIMARY KEY(id)
+);
