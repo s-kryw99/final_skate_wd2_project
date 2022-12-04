@@ -25,7 +25,7 @@
  </div>
 
 
- <form method="post" action="user_edit.php">
+ <form method="post" action="admin_create_user.php">
    <fieldset>
      <legend>User Control</legend>
  <button id= "user" type="submit" name= "command" value= "Update" >Create User🤖</button>

@@ -79,13 +79,6 @@ if ($_POST)
     unset($_SESSION['status_valid']);
   }
   ?>
-  <!--
-  if(isset($_SESSION['reg_complete']))
-  {
-    echo $_SESSION['reg_complete'];
-    unset($_SESSION['reg_complete']);
-  }
-  -->
 
 
   <?php  foreach($data as $row) {  ?>

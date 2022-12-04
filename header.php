@@ -13,11 +13,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
-<body>
-
-  <!-- <br /><br /> -->
-  <!-- <div class="container" style="width:500px;">
-       <h3 align="center"><a href="main.php"> | WD2 | Skateboard Tracking System | </a></h3>
-       <h4 align="center"><a href="main.php">  Personal Use Corporation  </a></h3>
-       <br />
-  </div> -->
+<!-- <body> -->
+  <!-- <body bgcolor="lightblue"> -->
+<body style="background-color: lightgreen">
