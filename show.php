@@ -11,6 +11,7 @@ require 'header.php';
 require 'home_create_menu.php';
 require 'exit_page.php';
 
+
 $id = $_GET['id'];
 
 $query = "SELECT * FROM final_skate WHERE id=:id";
@@ -23,7 +24,8 @@ $skate_or_die = $statement->fetchAll();
 ?>
 
 <!-- header inserted here -->
-<div class="container" style="width:500px;">
+     <script src="js/validate.js"></script>
+     <div class="container" style="width:500px;">
      <h3 align="center"><a href="main.php"> | WD2 | Skateboard Tracking System | </a></h3>
      <h4 align="center"><a href="main.php">  Personal Use Corporation  </a></h3>
      <br />
@@ -53,9 +55,13 @@ $skate_or_die = $statement->fetchAll();
 <?php
 if(isset($skate_or_die[0]['sp_image']))
 	{
-    	 echo '<p><img width="200" height="200" src= "uploads/'. $skate_or_die[0]['sp_image'] . '"></p>';
+    	 echo '<p><img alt="Image not found" width="200" height="200" src= "uploads/'. $skate_or_die[0]['sp_image'] . '" onerror="this.remove()" ></p>';
 	}
-?>
+  else
+  {
+    echo '🧙‍dddd♂️';
+    }
+  ?>
 
 <!-- Footer inserted here -->
 <br /><br />
