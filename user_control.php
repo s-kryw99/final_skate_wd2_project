@@ -21,10 +21,18 @@
 
  <!-- html header starts here -->
  <div class="container" style="width:500px;">
-      <h3 align="center"><a href="admin_landing.php"> | WD2 | Skateboard Tracking System | </a></h3>
       <h4 align="center"><a href="admin_landing.php">  Personal Use Corporation  </a></h3>
-      <br />
  </div>
+
+
+ <form method="post" action="user_edit.php">
+   <fieldset>
+     <legend>User Control</legend>
+ <button id= "user" type="submit" name= "command" value= "Update" >Create User🤖</button>
+ <br />      <br />
+</fieldset>
+</form>
+
 
    <div class="container" style="width:500px;">
  <?php foreach($rows as $row): ?>

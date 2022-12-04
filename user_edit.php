@@ -1,16 +1,17 @@
 <?php
 /*
  * Name:Alex Fleming
- * Title: edit.php
- * Description: This file has code related to using the edit portion of the webpage.
+ * Title:
+ * Description:
  *
  */
 
+ require 'exit_page.php';
  require 'connect.php';
  require 'header.php';
  require 'home_create_menu.php';
-  require 'admin_header.php';
- require 'exit_page.php';
+ require 'admin_header.php';
+
 
 
 $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
@@ -25,7 +26,7 @@ $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
 
       // Execute the SELECT and fetch the single row returned.
       $statement->execute();
-      $blog = $statement->fetchAll();
+      $reguser = $statement->fetchAll();
 
     }else{
 
@@ -49,7 +50,6 @@ $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
               $error_message = "Content must not be empty";
             }
 
-
             // Build the parameterized SQL query and bind the sanitized values to the parameters
             $query     = "UPDATE users SET user_name = :user_name, user_email = :user_email, user_pass = :user_pass WHERE id = :id";
 
@@ -67,19 +67,18 @@ $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
             }
             else
             {
-            header("Location: index.php");
+            // header("Location: admin_landing.php");
             }
             exit(0);
 
-            //header("Location: index.php");
-            //exit(0);
+
         } elseif ($_POST['command'] == 'Delete') {
 
           // Sanitize user input to escape HTML entities and filter out dangerous characters.
           $user_name  = filter_input(INPUT_POST, 'user_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-          $user_pass = filter_input(INPUT_POST, 'user_pass', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+          $user_pass  = filter_input(INPUT_POST, 'user_pass', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
           $user_email = filter_input(INPUT_POST, 'user_email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-          $id      = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+          $id         = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
           // Build the parameterized SQL query and bind to the above sanitized values.
           $query     = "DELETE FROM users WHERE id = :id";
@@ -88,43 +87,35 @@ $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
 
           // Execute the INSERT.
           $statement->execute();
-
-
-          header("Location: admin_landing.php");
-
+          // header("Location: admin_landing.php");
           exit(0);
         }
       }
-
-
 ?>
+
 
   <?php if (isset($error)) { ?>
     <div id="error_message">
       <p><?= $error ?></p>
     </div>
   <?php } ?>
-
-<ul id="menu">
-    <li><a href="index.php">Home</a></li>
-    <li><a href="create.php">New Post</a></li>
-</ul>
 <div>
   <?php if ($id): ?>
         <form method="post" action="user_edit.php">
           <fieldset>
             <legend>Edit Users</legend>
-            <!-- Hidden input for the quote primary key. -->
-            <input type="hidden" name="id" value="<?= $blog[0]['id'] ?>">
-            <!-- Quote author and content are echoed into the input value attributes. -->
+            <!-- Hidden input for the table primary key. -->
+            <input type="hidden" name="id" value="<?= $reguser[0]['id'] ?>">
+            <!--  email, username and password are echoed into the input value attributes. -->
             <label for="user_email">Email</label>
-            <input id="user_email" name="user_email" value="<?= $blog[0]['user_email'] ?>">
+            <input id="user_email" name="user_email" value="<?= $reguser[0]['user_email'] ?>">
+            <br /><br />
             <label for="user_name">User Name</label>
-            <input id="user_name" name="user_name" value="<?= $blog[0]['user_name'] ?>">
-            <!-- <input type="hidden" name="id" value="2303" /> -->
-            <!-- <input type="submit" name="command" value="Update" />
-            <input type="submit" name="command" value="Delete" onclick="return confirm('Are you sure you wish to delete this post?')" /> -->
-
+            <input id="user_name" name="user_name" value="<?= $reguser[0]['user_name'] ?>">
+            <br />      <br />
+            <label for="user_pass">Password</label>
+            <input id="user_pass" name="user_pass" value="">
+            <br />      <br />
             <button id= "user" type="submit" name= "command" value= "Update" >Update🤖</button>
             <button id= "user" type="submit" name= "command" value= "Delete" onclick="return confirm('Are you sure you wish to delete this post?')" >Delete💀</button>
           </fieldset>
