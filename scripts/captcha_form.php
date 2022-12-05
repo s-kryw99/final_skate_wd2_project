@@ -14,12 +14,16 @@
           "message" => "Please enter the captcha."
         );
       }
-      else if($_SESSION['CAPTCHA_CODE'] == $captchaUser){
+      else if($_SESSION['CAPTCHA_CODE'] == $captchaUser)
+      {
         $captchaError = array(
           "status" => "alert-success",
           "message" => "Your captcha has been submitted successfuly. You may register."
         );
-      } else {
+           header("location:log_reg.php");
+      }
+      else
+      {
         $captchaError = array(
           "status" => "alert-danger",
           "message" => "Captcha is invalid."

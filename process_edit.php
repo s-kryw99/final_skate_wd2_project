@@ -2,8 +2,7 @@
 /* Assignment:	Final
  * Programmer:	Alex Fleming
  * Title:	Final Assignment
- * Description:	PHP Script for processing edits to blog posts, whether it's an edit or a deletion,
-					with validation for whether the title or main content field have data.
+ * Description:	
  * Date:
  */
 
@@ -29,9 +28,10 @@
 
       $release_year = filter_input(INPUT_POST, 'release_year', FILTER_SANITIZE_NUMBER_INT);
       $year_used  = filter_input(INPUT_POST, 'year_used', FILTER_SANITIZE_NUMBER_INT);
+			$sp_image = filter_input(INPUT_POST, 'sp_image', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 
-			$query = "UPDATE final_skate SET title = :title, notes = :notes, brand = :brand, rating = :rating, length = :length, width = :width, release_year = :release_year, year_used = :year_used WHERE id = :id";
+			$query = "UPDATE final_skate SET title = :title, notes = :notes, brand = :brand, rating = :rating, length = :length, width = :width, release_year = :release_year, year_used = :year_used, sp_image = :sp_image WHERE id = :id";
 			$statement = $db->prepare($query);
 			$statement->bindValue(':title', $title);
 			$statement->bindValue(':notes', $notes);
@@ -44,6 +44,7 @@
 
       $statement->bindValue(':release_year', $release_year);
       $statement->bindValue(':year_used', $year_used);
+			$statement->bindValue(':sp_image', $sp_image);
 
 			$statement->bindValue(':id', $id, PDO::PARAM_INT);
 

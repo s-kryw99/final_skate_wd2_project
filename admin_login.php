@@ -2,15 +2,6 @@
 require 'connect.php';
 require 'header.php';
 
-// if($_POST["password"] == $_POST["repassword"])
-// {
-//   echo 'yes they match';
-// }
-// else
-// {
-//   echo '<script>alert("Ваші паролі не збігаються.")</script>';
-// }
-
 
 if(isset($_SESSION["username"]))
 {

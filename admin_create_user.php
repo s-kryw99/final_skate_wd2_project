@@ -37,8 +37,9 @@ if(isset($_POST["register"]))
             // Determine the primary key of the inserted row.
             $insert_id = $db->lastInsertId();
 
-                echo 'yes they match';
-                echo '<script>alert("Registration Done")</script>';
+                echo 'New User Created';
+                echo '<script>alert("User Creation Complete")</script>';
+                header("location: user_control.php");
           }
           else
           {

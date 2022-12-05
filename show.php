@@ -12,7 +12,6 @@ require 'header.php';
 require 'home_create_menu.php';
 
 
-
 $id = $_GET['id'];
 
 $query = "SELECT * FROM final_skate WHERE id=:id";
@@ -26,11 +25,12 @@ $skate_or_die = $statement->fetchAll();
 
 <!-- header inserted here -->
      <script src="js/validate.js"></script>
+
      <div class="container" style="width:500px;">
      <h3 align="center"><a href="main.php"> | WD2 | Skateboard Tracking System | </a></h3>
      <h4 align="center"><a href="main.php">  Personal Use Corporation  </a></h3>
      <br />
-</div>
+    </div>
 
 <!-- //date -->
  <small>
@@ -60,7 +60,7 @@ if(isset($skate_or_die[0]['sp_image']))
 	}
   else
   {
-    echo '🧙‍dddd♂️';
+    echo '🧙‍';
     }
   ?>
 

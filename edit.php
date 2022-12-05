@@ -42,6 +42,23 @@
 			exit;
 	}
 
+
+  if ($_POST['commandX'] == 'Delete')
+  {
+    	  $sp_image = filter_input(INPUT_POST, 'sp_image', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        // $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+        $query = "DELETE FROM final_skate WHERE sp_image = :sp_image LIMIT 1";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':sp_image', $sp_image, PDO::PARAM_INT);
+
+        $statement->execute();
+
+        header("Location: index.php");
+        exit;
+  }
+
 ?>
 
 
@@ -97,6 +114,24 @@
 			</form>
 		</div>
 
+    <form method="post" action="show?id=$row?id.php">
+      <fieldset>
+    <?php
+    if(isset($row['sp_image']))
+    	{
+        	 echo '<p><img alt="Image not found" width="200" height="200" src= "uploads/'. $row['sp_image'] . '" onerror="this.remove()" ></p>';
+    	}
+      else
+      {
+        echo '🧙‍';
+        }
+      ?>
+        <button id= "user" type="submit" name= "commandX" value= "Delete" onclick="return confirm('Are you sure you wish to delete this image?')" >Delete Image💀</button>
+
+
+      <!-- <input type="checkbox" name="pic_check" value="1"> -->
+</fieldset>
+	</form>
 		<!-- Footer inserted here -->
 		<br /><br />
 		<?php  require 'footer.php'; ?>

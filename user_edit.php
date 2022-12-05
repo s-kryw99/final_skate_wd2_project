@@ -87,6 +87,7 @@ $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
 
           // Execute the INSERT.
           $statement->execute();
+          header("location: user_control.php");
           // header("Location: admin_landing.php");
           exit(0);
         }

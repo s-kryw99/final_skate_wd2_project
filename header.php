@@ -14,5 +14,4 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <!-- <body> -->
-  <!-- <body bgcolor="lightblue"> -->
 <body style="background-color: lightgreen">

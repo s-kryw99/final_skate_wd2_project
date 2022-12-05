@@ -7,11 +7,13 @@ include('scripts/captcha_form.php');
 
 
 
+// 
+// if($_POST)
+// {
+//   if($_POST['captcha'])
+//      header("location:log_reg.php");
+// }
 
-  if($_POST['captcha'])
-  {
-     header("location:log_reg.php");
-   }
 ?>
 
 <!-- <-header.php starts here------------>
