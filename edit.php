@@ -2,26 +2,32 @@
 /* Assignment:	3
  * Programmer: Alex Fleming
  * Title:	Final Assignment
- * Description:	PHP Script for the creation page of blog posts, requiring connecting to the
-					database with validation for the user being a registered user.
+ * Description:	PHP
  * Date:
  */
 
+ require 'exit_page.php';
  require 'connect.php';
  require 'header.php';
  require 'home_create_menu.php';
- require 'exit_page.php';
 
-	if (!empty($_GET['id']))
+
+  $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+  $sp_image = filter_input(INPUT_POST, 'sp_image', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $commandX = filter_input(INPUT_POST, 'commandX', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+if(!$id)
+{
+  $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+}
+
+
+
+	if (!$id || $id <= 0)
 	{
-		$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-		if(!($id > 0))
-		{
-			header("Location: index.php");
+			header("Location: main.php");
 			exit;
-		}
-
+	}
 		$query = "SELECT * FROM final_skate WHERE id = :id";
 		$statement = $db->prepare($query);
 		$statement->bindValue(':id', $id, PDO::PARAM_INT);
@@ -30,34 +36,13 @@
 
 		if($statement->rowCount() <= 0)
 		{
-			header("Location: index.php");
+			header("Location: main.php");
 			exit;
 		}
 
 		$row = $statement->fetch();
-	}
-	else
-	{
-			header("Location: index.php");
-			exit;
-	}
 
 
-  if ($_POST['commandX'] == 'Delete')
-  {
-    	  $sp_image = filter_input(INPUT_POST, 'sp_image', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-        // $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-        $query = "DELETE FROM final_skate WHERE sp_image = :sp_image LIMIT 1";
-        $statement = $db->prepare($query);
-        $statement->bindValue(':sp_image', $sp_image, PDO::PARAM_INT);
-
-        $statement->execute();
-
-        header("Location: index.php");
-        exit;
-  }
 
 ?>
 
@@ -68,7 +53,6 @@
      <h4 align="center"><a href="main.php">  Personal Use Corporation  </a></h3>
      <br />
 </div>
-
 		<div id="all_entries">
 			<form action="process_edit.php" method="post">
 				<fieldset>
@@ -114,24 +98,10 @@
 			</form>
 		</div>
 
-    <form method="post" action="show?id=$row?id.php">
-      <fieldset>
-    <?php
-    if(isset($row['sp_image']))
-    	{
-        	 echo '<p><img alt="Image not found" width="200" height="200" src= "uploads/'. $row['sp_image'] . '" onerror="this.remove()" ></p>';
-    	}
-      else
-      {
-        echo '🧙‍';
-        }
-      ?>
-        <button id= "user" type="submit" name= "commandX" value= "Delete" onclick="return confirm('Are you sure you wish to delete this image?')" >Delete Image💀</button>
 
-
+    <?php require 'delete_image.php'; ?>
       <!-- <input type="checkbox" name="pic_check" value="1"> -->
-</fieldset>
-	</form>
+
 		<!-- Footer inserted here -->
 		<br /><br />
 		<?php  require 'footer.php'; ?>

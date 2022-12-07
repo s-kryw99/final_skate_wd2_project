@@ -87,7 +87,8 @@ if(isset($_POST["register"]))
         <h4 align="center"><a href="index.php">  Personal Use Corporation  </a></h3>
         <br />
    </div>
-     <p align="center"><a href="admin_login.php?action=login">Admin Login</a></p>
+     <p align="center"><a href="admin_login.php?action=login"> <span style="color: lightgreen">Admin Login</span></a></p>
+
           <div class="container" style="width:500px;">
                <h3 align="center">Login Registration Form</h3>
                <h4 align="center">Skateboard Tracking System</h4>

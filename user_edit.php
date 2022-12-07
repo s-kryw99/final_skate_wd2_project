@@ -61,13 +61,14 @@ $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
 
             // Execute the INSERT.
             $statement->execute();
+                    header("location: user_control.php");
 
             if (isset($error_message)) {
               header("Location: edit.php?error=" . $error_message . "&id=" . $id);
             }
             else
             {
-            // header("Location: admin_landing.php");
+              header("location: user_control.php");
             }
             exit(0);
 
