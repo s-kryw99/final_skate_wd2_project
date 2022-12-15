@@ -1,7 +1,7 @@
 <?php
 require 'connect.php';
-require 'header.php';
-include('scripts/captcha_form.php');
+require 'topind.php';
+// include('scripts/captcha_form.php');
 
 
 if(isset($_SESSION["username"]))
@@ -66,9 +66,10 @@ if(isset($_POST["register"]))
 
              if (password_verify($password, $row['user_pass']))
              {
+                 $_SESSION['user_id'] = $row['id'];
+                 $_SESSION['user_name'] = $row['user_name'];
                  $_SESSION['user_admin'] = $row['user_admin'];
-                 $_SESSION['id'] = $row['id'];
-                 $_SESSION['status_valid'] = "Password is Valid";
+                 //$_SESSION['status_valid'] = "Password is Valid";
                  header("location:main.php");
                  exit;
                }
@@ -80,19 +81,10 @@ if(isset($_POST["register"]))
       }
 ?>
 
-
 <!-- <-header.php starts here------------>
-   <div class="container" style="width:500px;">
-        <h3 align="center"><a href="index.php"> | WD2 | Skateboard Tracking System | </a></h3>
-        <h4 align="center"><a href="index.php">  Personal Use Corporation  </a></h3>
-        <br />
-   </div>
-     <p align="center"><a href="admin_login.php?action=login"> <span style="color: lightgreen">Admin Login</span></a></p>
+     <!-- <p align="center"><a href="admin_login.php?action=login"> <span style="color: lightgreen">Admin Login</span></a></p> -->
 
           <div class="container" style="width:500px;">
-               <h3 align="center">Login Registration Form</h3>
-               <h4 align="center">Skateboard Tracking System</h4>
-               <br />
 <?php
 if(isset($_GET["action"]) == "login")
 {
@@ -108,7 +100,6 @@ if(isset($_GET["action"]) == "login")
                     <br />
                     <input type="submit" name="login" value="Login" class="btn btn-info" />
                     <br />
-                    <p align="center"><a href="cap_pop.php">Register</a></p>
                </form>
 <?php
 }
@@ -130,15 +121,9 @@ else
                     <label>Enter Email</label>
                     <input type="email" name="email" class="form-control" />
                     <br />
-
                     <input type="submit" name="register" value="Register" class="btn btn-info" />
                     <br />
-                    <p align="center"><a href="log_reg.php?action=login">Login</a></p>
                     <div class="container mt-5">
-
-
-                       <!-- <form action="" name="register" method="post" enctype="multipart/form-data"> -->
-
                       </form>
                     </div>
                </form>

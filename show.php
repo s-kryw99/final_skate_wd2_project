@@ -5,11 +5,9 @@
  * Description: This file has the code related to clicking the title of a blog post or "read more" links.
  *
  */
-
-require 'exit_page.php';
 require 'connect.php';
 require 'header.php';
-require 'home_create_menu.php';
+
 
 
 $id = $_GET['id'];
@@ -26,11 +24,7 @@ $skate_or_die = $statement->fetchAll();
 <!-- header inserted here -->
      <script src="js/validate.js"></script>
 
-     <div class="container" style="width:500px;">
-     <h3 align="center"><a href="main.php"> | WD2 | Skateboard Tracking System | </a></h3>
-     <h4 align="center"><a href="main.php">  Personal Use Corporation  </a></h3>
-     <br />
-    </div>
+
 
 <!-- //date -->
  <small>
@@ -56,14 +50,15 @@ $skate_or_die = $statement->fetchAll();
 <?php
 if(isset($skate_or_die[0]['sp_image']))
 	{
-    	 echo '<p><img alt="Image not found" width="200" height="200" src= "uploads/'. $skate_or_die[0]['sp_image'] . '" onerror="this.remove()" ></p>';
+    	 echo '<p><img alt="Image not found" src= "uploads/'. $skate_or_die[0]['sp_image'] . '" onerror="this.remove()" ></p>';
+       	 // echo '<p><img alt="Image not found" width="200" height="200" src= "uploads/'. $skate_or_die[0]['sp_image'] . '" onerror="this.remove()" ></p>';
 	}
   else
   {
     echo '🧙‍';
     }
   ?>
-
+ <?php  require 'comments.php';  ?>
 <!-- Footer inserted here -->
 <br /><br />
 <?php  require 'footer.php'; ?>

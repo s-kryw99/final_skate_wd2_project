@@ -1,21 +1,14 @@
 <?php
 require 'connect.php';
-require 'header.php';
+require 'topind.php';
 include('scripts/captcha_form.php');
- ?>
-
-
-
- <div class="container" style="width:500px;">
-      <h3 align="center"><a href="index.php"> | WD2 | Skateboard Tracking System | </a></h3>
-      <h4 align="center"><a href="index.php">  Personal Use Corporation  </a></h3>
-      <br />
- </div>
+include 'read_only_list.php';
+?>
 
 <div align="center">
 <!-- <form method="post" action="log_reg.php"> -->
 
-  <form method="post" action="cap_pop.php">
+  <!-- <form method="post" action="cap_pop.php">
   <fieldset>
     <legend>You May Login or Register Please</legend>
     <br />      <br />
@@ -30,9 +23,9 @@ include('scripts/captcha_form.php');
     <br />      <br />
     <button id= "user" type="submit" name= "commandL" value= "login" >Login🍰</button>
   </fieldset>
-</form>
+</form> -->
 
 
 <!-- <-footer.php starts here--------->
 <br /><br />
- <?php  require 'footer.php'; ?>
+<?php  require 'footer.php'; ?>

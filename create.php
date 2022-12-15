@@ -8,8 +8,7 @@
  */
 
  require 'header.php';
- require 'home_create_menu.php';
- require 'exit_page.php';
+
 
 $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
 
@@ -47,6 +46,102 @@ function file_upload_path($original_filename, $upload_subfolder_name = 'uploads'
       $img="uploads/".$image_filename;
       echo '<img src= "'.$img.'">';
 
+
+
+
+      $source = $img;   #brad.jpg  ... brad_540-400.jpg
+      $dest = "uploads/res_".$_FILES['image']['name'];
+
+      $size = getimagesize($source);
+      $width = $size[0];
+      $height = $size[1];
+
+      $resize = "0.5";
+      $rwidth = ceil($width * $resize);
+      $rheight = ceil($height * $resize);
+      //
+      // $original = imagecreatefromjpeg($source);
+      //
+      // $resized = imagecreatetruecolor($rwidth, $rheight);
+      // imagecopyresampled(
+      //   $resized, $original,
+      //   0,0,0,0,
+      //   $rwidth, $rheight,
+      //   $width, $height
+      // );
+      //
+      // imagejpeg($resized, $dest);
+      // echo "OK";
+
+
+
+            // if($_FILES['image']['type'])
+            // {
+                  $original = imagecreatefromjpeg($source);
+            // }
+            //
+            // elseif($_FILES['image']['gif'])
+            // {
+            //       $original = imagecreatefromgif($source);
+            // }
+            //
+            // elseif($_FILES['image']['png'])
+            // {
+            //     $original = imagecreatefrompng($source);
+            // }
+
+
+            $resized = imagecreatetruecolor($rwidth, $rheight);
+            imagecopyresampled(
+              $resized, $original,
+              0,0,0,0,
+              $rwidth, $rheight,
+              $width, $height
+            );
+
+      //
+      // if($_FILES['image']['jpeg'])
+      // {
+            imagejpeg($resized, $dest);
+            echo "OK";
+      // }
+      //
+      // elseif($_FILES['image']['gif'])
+      // {
+      //       imagegif($resized, $dest);
+      //       echo "OK";
+      // }
+      //
+      // elseif($_FILES['image']['png'])
+      // {
+      //     imagepng($resized, $dest);
+      //     echo "OK";
+      // }
+
+
+
+
+
+// var_dump($source);
+// echo "<br>";
+// var_dump($width, $height);
+// echo "<br>";
+// var_dump($newwidth);
+// echo "<br>";
+// var_dump($newheight);
+// echo "<br>";
+// var_dump($destination);
+// echo "<br>";
+// var_dump(imagecopyresampled($destination, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height));
+// echo "<br>";
+// var_dump(imagejpeg($destination, $image_filename, 100));
+// echo "<br>";
+
+
+
+
+
+
     if(file_is_an_validate($temporary_image_path, $new_image_path))
     {
       echo ((move_uploaded_file($temporary_image_path, $new_image_path))?("Success"):("Failed"));
@@ -54,13 +149,8 @@ function file_upload_path($original_filename, $upload_subfolder_name = 'uploads'
   }
 ?>
 
-<!-- header.php starts here -->
-<div class="container" style="width:500px;">
-     <h3 align="center"><a href="main.php"> | WD2 | Skateboard Tracking System | </a></h3>
-     <h4 align="center"><a href="main.php">  Personal Use Corporation  </a></h3>
-     <br />
-</div>
 
+<!-- header.php starts here -->
 <!-- image upload  -->
     <?php if (!isset($_FILES['image'])) : ?>
 
@@ -81,7 +171,7 @@ function file_upload_path($original_filename, $upload_subfolder_name = 'uploads'
       <p>Size in Bytes:        <?= $_FILES['image']['size'] ?></p>
       <p>Temporary Path:       <?= $_FILES['image']['tmp_name'] ?></p>
     <?php endif ?>
-
+    <div class="container" style="width:500px;">
 
 <?php if (isset($error)) { ?>
   <div id="error_message">
@@ -90,7 +180,7 @@ function file_upload_path($original_filename, $upload_subfolder_name = 'uploads'
 <?php } ?>
 
 
-
+      <div class="container" style="width:500px;">
       <form action="process_post.php" method="post">
         <fieldset>
           <legend>New Deck Entry Form</legend>
@@ -132,11 +222,11 @@ function file_upload_path($original_filename, $upload_subfolder_name = 'uploads'
             <textarea name="notes" id="notes"></textarea>
           </p>
           <p>
-            <input type="submit" name="command" value="Create" />
+            <input class ="btn" type="submit" name="command" value="Create" />
           </p>
         </fieldset>
       </form>
-
+  <div>
 
       <!-- Footer inserted here -->
       <br /><br />

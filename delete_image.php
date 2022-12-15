@@ -6,7 +6,6 @@
  * Date:
  */
 
- require 'header.php';
 
   $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
   $sp_image = filter_input(INPUT_POST, 'sp_image', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -52,7 +51,14 @@ if(!$id)
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
         $statement->execute();
 
-        // header("Location: show.php");
+   // Delete image from images folder on PC
+        $img = $row['sp_image'];
+
+        $imgpath = "uploads/" . $img;
+
+        unlink( $imgpath );
+
+
         header("Location: main.php");
         exit;
         }
@@ -98,3 +104,10 @@ else { ?>
 
 
       <!-- <input type="checkbox" name="pic_check" value="1"> -->
+
+
+
+      
+      <!-- Footer inserted here -->
+      <br /><br />
+      <?php  require 'footer.php'; ?>

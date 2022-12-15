@@ -1,13 +1,13 @@
 <?php
 require 'connect.php';
-require 'header.php';
+require 'topind.php';
 include('scripts/captcha_form.php');
 
 //
 
 
 
-// 
+//
 // if($_POST)
 // {
 //   if($_POST['captcha'])
@@ -17,11 +17,7 @@ include('scripts/captcha_form.php');
 ?>
 
 <!-- <-header.php starts here------------>
-   <div class="container" style="width:500px;">
-        <h3 align="center"><a href="index.php"> | WD2 | Skateboard Tracking System | </a></h3>
-        <h4 align="center"><a href="index.php">  Personal Use Corporation  </a></h3>
-        <br />
-   </div>
+
           <div class="container" style="width:500px;">
                <br />
                <h3 align="center">Please, Complete the Captcha to Advance</h3>

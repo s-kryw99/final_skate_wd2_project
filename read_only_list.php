@@ -1,15 +1,8 @@
 <?php
- require 'connect.php';
- require 'header.php';
- // require 'comments.php';
-
-#deb($_SESSION,1);
+ // require 'connect.php';
+ // require 'header.php';
 
 
-// $order = isset($_POST["order"] ) ? $_POST["order"]: '';
-//if post order ? turnary operater
-//you have given turnary op ? an operater. at the & it splits the values
-//if this is true ? >>>post order else (:) ''.
 
 $cata = "datetimestamp";
 $order = "ASC";
@@ -80,15 +73,15 @@ if ($_POST)
 <div class="container">
         <fieldset>
           <p>
-          <legend><a href="show.php?id=<?=$row['id']?>"><?=$row['title']?></a></legend>
-
+          <legend><a hidden=<?=$row['id']?>"><?=$row['title']?></a></legend>
+          <a><?=$row['title']?></a>
           <h4>Brand: <a <?=$row['id']?>> <?=$row['brand']?> </a></h4>
 <!-- The notes section with read more option -->
             <h5> Notes:
-              <?php if (strlen($row['notes']) > 200)
+              <?php if (strlen($row['notes']) > 500)
               {
-                $link = '<a href="show.php?id=' . $row['id'] . '">Read more</a>';
-                echo substr($row['notes'], 0, 100) . '...' . $link;
+                // $link = '<a href="show.php?id=' . $row['id'] . '">Read more</a>';
+                echo substr($row['notes'], 0, 500) . '...' . $link;
               }
               else
               {
@@ -97,8 +90,8 @@ if ($_POST)
             </h4>
               <!-- the time stamp for homepage  -->
                         <small>
-                          <?=date_format(date_create($row['datetimestamp']), "F d, o, h:i a")?> -
-                          <a href="edit.php?id=<?=$row['id']?>">edit</a>
+                          <?=date_format(date_create($row['datetimestamp']), "F d, o, h:i a")?>
+
                         </small>
               <br /><br />
               <br /><br />
@@ -106,11 +99,3 @@ if ($_POST)
       </fieldset>
       </div>
     <?php } ?>
-
-
-
-
-
-<!-- footer.php starts here -->
-<br /><br />
- <?php  require 'footer.php'; ?>

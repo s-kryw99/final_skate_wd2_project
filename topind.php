@@ -35,8 +35,7 @@
 	<nav id="menu">
     <br /><br />
 		<ul>
-			<li><a href="main.php">Home</a></li>
-          <li><a href="sk_api.php">Find a Winnipeg Skatepark</a></li>
+			<li><a href="index.php">Home</a></li>
 
 <?php if(isset($_SESSION['user_id'])) { ?>
 
@@ -44,6 +43,7 @@
 <?php      if($_SESSION['user_admin']==1) { ?>
     <li><a href="user_control.php">User Control</a></li>
     <li><a href="admin_landing.php">Admin Home</a></li>
+    <li><a href="sk_api.php">Find a Winnipeg Skatepark</a></li>
 <?php      } ?>
 
 

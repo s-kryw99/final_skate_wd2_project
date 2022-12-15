@@ -44,49 +44,47 @@ if(isset($_POST["register"]))
      }
 
 
+
+
      if(isset($_POST["login"]))
-     {
-          if(empty($_POST["username"]) || empty($_POST["password"]))
+       {
+            if(empty($_POST["username"]) || empty($_POST["password"]))
+            {
+                echo '<script>alert("Both Fields are required")</script>';
+          }
+          else
           {
-              echo '<script>alert("Both Fields are required")</script>';
-        }
-        else
-        {
-             $username   = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-             $password   = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-             $user_admin = filter_input(INPUT_POST, 'user_admin', FILTER_SANITIZE_NUMBER_INT);
-
-             $query     = "SELECT * FROM users WHERE user_name = :user_name AND user_name = :user_name";
+               $username  = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+               $password  = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 
-             $statement = $db->prepare($query);
-             $statement->bindValue(':user_name', $username);
-             $statement->bindValue(':user_admin', $user_admin);
-             $statement->execute();
-             $row=$statement->fetch();
+               $query     = "SELECT * FROM users WHERE active=1 AND  user_name = :user_name";
 
-             if (password_verify($password, $row['user_pass']) && $row['user_admin'])
-             {
+               $statement = $db->prepare($query);
+               $statement->bindValue(':user_name', $username);
+               $statement->execute();
+               $row=$statement->fetch();
 
-                 $_SESSION['user_admin'] = $row['user_admin'];
-
-                 $_SESSION['status_valid'] = "Password is Valid";
-                 header("location:admin_landing.php");
-                 exit;
+               if (password_verify($password, $row['user_pass']))
+               {
+                   $_SESSION['user_id'] = $row['id'];
+                   $_SESSION['user_name'] = $row['user_name'];
+                   $_SESSION['user_admin'] = $row['user_admin'];
+                   //$_SESSION['status_valid'] = "Password is Valid";
+                   header("location:main.php");
+                   exit;
+                 }
+               else
+               {
+                   echo '<script>alert("Invalid password.")</script>';
                }
-             else
-             {
-                 echo '<script>alert("Invalid password.")</script>';
              }
-           }
-      }
+        }
+
 ?>
 
 <!-- <-header.php starts here------------>
-<div class="container" style="width:500px;">
-     <h3 align="center"><a href="admin_login.php?action=login"> | WD2 | Skateboard Tracking System | </a></h3>
-     <h4 align="center"><a href="admin_login.php?action=login">  Personal Use Corporation  </a></h3>
-     <br />
+
        </div>
           <div class="container" style="width:500px;">
                <h3 align="center">Login Registration Form</h3>

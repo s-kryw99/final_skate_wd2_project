@@ -1,16 +1,9 @@
 <?php
 require 'connect.php';
-require 'home_create_menu.php';
-require 'admin_header.php';
 require 'header.php';
-include('scripts/captcha_form.php');
 
 
-if(isset($_SESSION["username"]))
-{
-     header("location:main.php");
 
-}
 if(isset($_POST["register"]))
 {
      if(empty($_POST["username"]) || empty($_POST["password"]) || empty($_POST["email"]))
@@ -50,12 +43,6 @@ if(isset($_POST["register"]))
 
 
 <!-- <-header.php starts here------------>
-   <div class="container" style="width:500px;">
-        <h3 align="center"><a href="index.php"> | WD2 | Skateboard Tracking System | </a></h3>
-        <h4 align="center"><a href="index.php">  Personal Use Corporation  </a></h3>
-        <br />
-   </div>
-
           <div class="container" style="width:500px;">
                <h3 align="center">Create User</h3>
                <br />

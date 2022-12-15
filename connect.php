@@ -1,4 +1,16 @@
 <?php
+
+
+function deb($var_obj_arr, $exit=0)
+{
+    echo "<br><br><pre>";
+    print_r($var_obj_arr);
+    echo "</pre><br><br>";
+        if($exit==1)
+        {exit(0); return;} # continues after echo
+    else{return;}          # stops after echo
+}
+
 # -------------------------------------------------------------------
 # db connnection
 define('DB_DSN','mysql:host=localhost;dbname=serverside_online;charset=utf8mb4');

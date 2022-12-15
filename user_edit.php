@@ -6,11 +6,11 @@
  *
  */
 
- require 'exit_page.php';
+ // require 'exit_page.php';
  require 'connect.php';
  require 'header.php';
- require 'home_create_menu.php';
- require 'admin_header.php';
+ #require 'home_create_menu.php';
+ // require 'admin_header.php';
 
 
 
@@ -36,6 +36,7 @@ $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
             $user_pass  = filter_input(INPUT_POST, 'user_pass', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $user_email = filter_input(INPUT_POST, 'user_email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $user_name = filter_input(INPUT_POST, 'user_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $user_pass  = password_hash($user_pass, PASSWORD_DEFAULT);
             $id      = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
             if (empty($user_pass)) {
@@ -79,6 +80,7 @@ $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
           $user_name  = filter_input(INPUT_POST, 'user_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
           $user_pass  = filter_input(INPUT_POST, 'user_pass', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
           $user_email = filter_input(INPUT_POST, 'user_email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+          $password  = password_hash($password, PASSWORD_DEFAULT);
           $id         = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
           // Build the parameterized SQL query and bind to the above sanitized values.

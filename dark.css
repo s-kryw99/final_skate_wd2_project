@@ -1,14 +1,41 @@
+
+head {
+  background-color: black;
+  color: blue;
+}
+
+div#wrapper {
+  background-color: black;
+  color: blue;
+}
+
+legend {
+    /* padding: 0 10px;
+    font: 12px Verdana, Arial, sans-serif; */
+    color: red;
+    text-transform: uppercase;
+}
+
 body {
   background-color: black;
-  color: green;
-}
+  color: blue;
 
-h1 {
-  background-color: black;
-  color: white;
 }
-
 div {
   background-color: black;
-  color: white;
+  color: blue;
+
+}
+
+
+h3 {
+  background-color: black;
+  color: blue;
+
+}
+
+h4 {
+  background-color: black;
+  color: blue;
+
 }
